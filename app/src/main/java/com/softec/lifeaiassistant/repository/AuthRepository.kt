@@ -14,6 +14,7 @@ import com.softec.lifeaiassistant.models.ModelUser
 import kotlinx.coroutines.tasks.await
 import java.util.Base64
 import kotlin.experimental.xor
+import androidx.core.content.edit
 
 class AuthRepository {
 
@@ -95,9 +96,9 @@ class AuthRepository {
                     if (user != null && user.isEmailVerified) {
                         val sharedPref =
                             context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-                        sharedPref.edit()
-                            .putString("userId", user.uid)
-                            .apply()
+                            sharedPref.edit() {
+                                putString("userId", user.uid)
+                            }
 
                         callback(AuthResult.Success)
                     } else {

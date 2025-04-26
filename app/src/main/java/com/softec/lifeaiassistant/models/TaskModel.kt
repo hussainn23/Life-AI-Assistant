@@ -13,7 +13,6 @@ data class TaskModel (
     val reminder:String="",  //yes or no
     val checkList:String="",
     val status:String=Constants.PENDING,
-    val tasktype:String="",
     val userId:String="",
     val createdAt: Timestamp? = null
 )

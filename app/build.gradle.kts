@@ -88,6 +88,8 @@ dependencies {
 
     // LiveData KTX (for LiveData observables)
     implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation ("com.google.mlkit:text-recognition:16.0.0")
+
 
 
 
