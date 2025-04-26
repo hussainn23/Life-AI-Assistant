@@ -32,7 +32,7 @@ class ActivitySplash : AppCompatActivity() {
         }
 
 
-        viewModel.startTimer(3000, 3000)
+        viewModel.startTimer(2000, 2000)
 
         viewModel.timerFinished.observe(this) { timerFinished ->
             if (timerFinished) {

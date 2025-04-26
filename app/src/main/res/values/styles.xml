@@ -246,6 +246,9 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:paddingVertical" tools:targetApi="26">20dp</item>
         <item name="android:paddingEnd">15dp</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:gravity">center_vertical</item>
         <item name="android:paddingStart">20dp</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
@@ -367,6 +370,19 @@
         <item name="android:elevation">2.5dp</item>
         <item name="android:textColor">?colorSecondary</item>
         <item name="android:backgroundTint">@color/white</item>
+    </style>
+    <style name="switchStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingHorizontal" tools:targetApi="26">15dp</item>
+        <item name="android:paddingVertical" tools:targetApi="26">20dp</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:background">@drawable/ripple_effect</item>
+        <item name="thumbIcon">@drawable/switch_thumb</item>
+        <item name="thumbIconSize">26sp</item>
+        <item name="thumbIconTint">@color/white</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="trackDecorationTint">@android:color/transparent</item>
     </style>
 
 </resources>

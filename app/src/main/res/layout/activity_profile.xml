@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.ActivityProfile">
+
+    <!-- App Bar with Collapsing Effect -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?backgroundColor"
+            android:fitsSystemWindows="true"
+            app:collapsedTitleTextAppearance="@style/textHeading"
+            app:expandedTitleMarginBottom="10dp"
+            app:expandedTitleMarginStart="20dp"
+            app:expandedTitleTextAppearance="@style/textHeading.Large"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:title="Profile"
+            app:titleCollapseMode="scale"
+            app:titleEnabled="true">  <!-- Disable built-in title -->
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="?backgroundColor"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
+                app:titleTextAppearance="@style/textHeading.Large" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingBottom="10dp">
+
+            <!-- Profile Picture -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/picProfile"
+                android:layout_width="80dp"
+                android:transitionName="img"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="?cardBackgroundColor"
+                app:cardCornerRadius="100dp"
+                app:cardElevation="0dp"
+                app:strokeColor="?colorButtonNormal"
+                app:strokeWidth="3dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/profilePic2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/user"
+                    android:transitionName="img"
+                    app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
+                    app:strokeColor="?backgroundColor"
+                    app:strokeWidth="15dp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Username -->
+            <TextView
+                android:id="@+id/tvUserName"
+                style="@style/textHeading.Small"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:text="User Name" />
+
+            <!-- Account Section -->
+            <TextView
+                style="@style/textBody.Small"
+                android:layout_marginTop="15dp"
+                android:text="Account" />
+
+            <TextView
+                android:id="@+id/layManageProfile"
+                style="@style/setting_item"
+                android:text="Profile detail"
+                app:drawableStartCompat="@drawable/user" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switchDark"
+                style="@style/switchStyle"
+                android:drawableStart="@drawable/moon_stars"
+                android:text="Dark Mode"
+                app:trackTint="@color/switch_track_tint" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/noti"
+                style="@style/switchStyle"
+                android:checked="true"
+                android:drawableStart="@drawable/bell_notification_social_media"
+                android:drawableTint="?colorSecondary"
+                android:text="Receive Notifications"
+                app:trackTint="@color/switch_track_tint" />
+
+            <!-- Policies Section -->
+            <!-- <TextView
+                 style="@style/textBody.Small"
+                 android:layout_marginTop="25dp"
+                 android:text="Policies" />
+
+
+             <TextView
+                 android:id="@+id/tvPrivacy"
+                 style="@style/setting_item"
+                 android:text="Privacy policy"
+                 app:drawableStartCompat="@drawable/round_info_outline_24_20dp" />
+
+             <TextView
+                 android:id="@+id/tvTerms"
+                 style="@style/setting_item"
+                 android:text="Terms &amp; conditions"
+                 app:drawableStartCompat="@drawable/terms_info" />
+
+             <TextView
+                 android:id="@+id/tvReportSomething"
+                 style="@style/setting_item"
+                 android:text="Report something"
+                 app:drawableStartCompat="@drawable/file_medical_alt" />-->
+
+            <TextView
+                style="@style/textBody.Small"
+                android:layout_marginTop="25dp"
+                android:text="Contact Us" />
+
+
+            <TextView
+                android:id="@+id/tvWebsite"
+                style="@style/setting_item"
+                android:text="Visit site"
+                app:drawableStartCompat="@drawable/site" />
+
+            <TextView
+                android:id="@+id/tvCall"
+                style="@style/setting_item"
+                android:text="Call us"
+                app:drawableStartCompat="@drawable/call_outgoing" />
+
+            <TextView
+                android:id="@+id/tvWhatsapp"
+                style="@style/setting_item"
+                android:text="WhatsApp chat"
+                app:drawableStartCompat="@drawable/whatsapp" />
+
+            <TextView
+                android:id="@+id/tvEmail"
+                style="@style/setting_item"
+                android:text="Email us"
+                app:drawableStartCompat="@drawable/clip_mail" />
+
+            <!-- Actions Section -->
+            <TextView
+                style="@style/textBody.Small"
+                android:layout_marginTop="25dp"
+                android:text="Actions" />
+
+            <TextView
+                android:id="@+id/tvHelpFeedback"
+                style="@style/setting_item"
+                android:text="Help &amp; Feedback"
+                app:drawableStartCompat="@drawable/user_headset" />
+
+            <TextView
+                android:id="@+id/tvCheckUpdates"
+                style="@style/setting_item"
+                android:text="Check for updates"
+                app:drawableStartCompat="@drawable/round_insert_link_24" />
+
+            <TextView
+                android:id="@+id/tvRate"
+                style="@style/setting_item"
+                android:text="Rate us"
+                app:drawableStartCompat="@drawable/round_star_border_24" />
+
+            <TextView
+                android:id="@+id/tvShareApp"
+                style="@style/setting_item"
+                android:text="Share this app"
+                app:drawableStartCompat="@drawable/baseline_share_24"
+                app:drawableTint="?colorSecondary" />
+
+            <TextView
+                android:id="@+id/tvLogout"
+                style="@style/setting_item"
+                android:text="Logout"
+                android:textColor="?colorError"
+                app:drawableStartCompat="@drawable/round_logout_24"
+                app:drawableTint="?colorError" />
+
+
+            <!-- App Version -->
+            <TextView
+                android:id="@+id/tvVersion"
+                style="@style/textBody.Small"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="10dp"
+                android:text="Version 1.0" />
+
+
+            <View
+                android:id="@+id/animator"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:transitionName="animator" />
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

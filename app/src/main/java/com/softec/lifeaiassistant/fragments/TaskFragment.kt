@@ -67,7 +67,7 @@ class TaskFragment(private val context: AppCompatActivity) :
         doWork()
     }
 
-    @SuppressLint("NewApi")
+
     private fun doWork() {
         calendarViewSetting()
         binding.fabAddTask.setOnClickListener {
@@ -86,16 +86,18 @@ class TaskFragment(private val context: AppCompatActivity) :
             }
             dialog.show()
         }
+
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
+    @SuppressLint("NewApi")
     private fun calendarViewSetting() {
         binding.apply {
 
             val currentDate = LocalDate.now()
             val currentMonth = YearMonth.now()
-            val startDate = currentMonth.atDay(1) // Start from the first day of the current month
+            currentMonth.atDay(1) // Start from the first day of the current month
             val endDate = currentMonth.plusMonths(1).atEndOfMonth() // End at the end of next month
 
             weekCalendarView.setup(
