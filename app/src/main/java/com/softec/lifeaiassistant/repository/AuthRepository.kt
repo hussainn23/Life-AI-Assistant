@@ -47,14 +47,15 @@ class AuthRepository {
                                 .set(userData)
                                 .addOnCompleteListener { dbTask ->
                                     if (dbTask.isSuccessful) {
-                                        user.sendEmailVerification()
+                                        callback(AuthenticationResponses.Success("Registered successfully!."))
+                                        /*user.sendEmailVerification()
                                             .addOnCompleteListener { emailTask ->
                                                 if (emailTask.isSuccessful) {
                                                     callback(AuthenticationResponses.Success("Please verify your email."))
                                                 } else {
                                                     callback(AuthenticationResponses.Error("Failed to send verification email."))
                                                 }
-                                            }
+                                            }*/
                                     } else {
                                         callback(AuthenticationResponses.Error("Failed to register user in database."))
                                     }
@@ -86,7 +87,8 @@ class AuthRepository {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
-                    if (user != null && user.isEmailVerified) {
+                            /*&& user.isEmailVerified*/
+                    if (user != null) {
                         callback(AuthResult.Success)
                     } else {
                         callback(AuthResult.EmailNotVerified)

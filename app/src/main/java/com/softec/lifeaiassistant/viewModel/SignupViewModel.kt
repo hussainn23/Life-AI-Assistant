@@ -1,4 +1,5 @@
 package com.softec.lifeaiassistant.viewModel
+import android.os.Build
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,8 +16,10 @@ class SignupViewModel(private val authRepository: AuthRepository) : ViewModel() 
     fun createUser(name: String, email: String, password: String) {
 
         _signupState.value = AuthenticationResponses.Loading
-        authRepository.createUser(name, email, password) { result ->
-            _signupState.value = result
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            authRepository.createUser(name, email, password) { result ->
+                _signupState.value = result
+            }
         }
     }
 
