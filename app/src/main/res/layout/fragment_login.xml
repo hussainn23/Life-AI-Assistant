@@ -87,7 +87,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tLay2" />
 
-    <TextView
+    <!--<TextView
         android:id="@+id/t2"
         style="@style/textBody"
         android:layout_marginTop="8dp"
@@ -108,7 +108,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/t2"
         />
-
+-->
     <!--
         <Button
             android:id="@+id/ivGoogle"

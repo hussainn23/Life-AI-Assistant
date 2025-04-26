@@ -67,7 +67,6 @@
                 android:layout_marginTop="5dp"
                 android:text="Today" />
 
-
             <com.kizitonwose.calendar.view.WeekCalendarView
                 android:id="@+id/weekCalendarView"
                 android:layout_width="0dp"
@@ -80,7 +79,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/today_label"
                 tools:listitem="@layout/calendar_day_layout"
-                tools:visibility="gone" />
+                 />
 
 
             <androidx.recyclerview.widget.RecyclerView

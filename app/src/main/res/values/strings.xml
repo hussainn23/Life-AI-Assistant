@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Life AI Assistant</string>
     <string name="apiKey">AIzaSyCIsJvP69PQGQwG7NQqVLdEMBOlm5ToqRc</string>
-
+    <string name="default_web_client_id" translatable="false">webClientId.apps.googleusercontent.com</string>
     <string name="login_msg1">Go ahead and provide your credentials</string>
     <string name="login_msg2">Sign-In and never lose your progress</string>
     <string name="signup_msg1">Go ahead and set up your account</string>

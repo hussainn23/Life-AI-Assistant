@@ -27,6 +27,7 @@ import java.time.temporal.WeekFields
 import java.util.Calendar
 import java.util.Locale
 
+
 class TaskFragment(private val context: AppCompatActivity) :
     AppFragmentLoader(R.layout.layout_fragment_home) {
 
@@ -86,6 +87,7 @@ class TaskFragment(private val context: AppCompatActivity) :
             dialog.show()
         }
     }
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun calendarViewSetting() {

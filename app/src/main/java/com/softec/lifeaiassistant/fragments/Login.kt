@@ -56,10 +56,10 @@ class Login : Fragment() {
                 viewModel.login(email, password)
             }
         }
-
+/*
         binding.ivGoogle.setOnClickListener {
             signInWithGoogle()
-        }
+        }*/
 
         binding.btnForgotPass.setOnClickListener {
             forgotPasswordDialog()
@@ -306,7 +306,8 @@ class Login : Fragment() {
                 animate().alpha(1f).translationY(0f).setDuration(500).setStartDelay(100)
                     .setInterpolator(FastOutSlowInInterpolator()).start()
             }
-            t2.apply {
+
+            /*t2.apply {
                 alpha = 0f
                 translationY = 20f
                 animate().alpha(1f).translationY(0f).setDuration(500).setStartDelay(100)
@@ -317,7 +318,7 @@ class Login : Fragment() {
                 translationY = 20f
                 animate().alpha(1f).translationY(0f).setDuration(500).setStartDelay(100)
                     .setInterpolator(FastOutSlowInInterpolator()).start()
-            }
+            }*/
         }
     }
 
