@@ -50,6 +50,7 @@ dependencies {
     implementation("com.airbnb.android:lottie:6.4.1")
 
     implementation ("com.kizitonwose.calendar:view:2.6.0")
+    implementation ("com.github.dhaval2404:imagepicker:2.1")
 
 
     implementation(libs.generativeai)

@@ -106,7 +106,7 @@
                 style="@style/textHeading.Small"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
-                android:text="Dure date"
+                android:text="Due date"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/laySerNm" />
 
@@ -135,7 +135,7 @@
                 android:id="@+id/t4"
                 style="@style/textHeading.Small"
                 android:layout_marginTop="25dp"
-                android:text="Specify Gender"
+                android:text="Priority"
                 app:layout_constraintStart_toStartOf="@id/t1"
                 app:layout_constraintTop_toBottomOf="@id/layHrs" />
 

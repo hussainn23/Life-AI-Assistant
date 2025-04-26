@@ -28,7 +28,7 @@
     <item
         android:id="@+id/fragment_schedule"
         android:icon="@drawable/calendar_clock"
-        android:title="Scheduling" />
+        android:title="Summarizer" />
 
 
 

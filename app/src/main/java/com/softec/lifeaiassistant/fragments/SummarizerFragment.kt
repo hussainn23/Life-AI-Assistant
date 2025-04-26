@@ -6,12 +6,11 @@ import android.util.Log
 import android.view.animation.OvershootInterpolator
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.NestedScrollView
 import com.softec.lifeaiassistant.R
 import com.softec.lifeaiassistant.customClasses.AppFragmentLoader
 import com.softec.lifeaiassistant.databinding.LayoutFragmentHomeBinding
 
-class ScheduleFragment(private val context: AppCompatActivity) :
+class SummarizerFragment(private val context: AppCompatActivity) :
     AppFragmentLoader(R.layout.layout_fragment_home) {
 
     private lateinit var binding: LayoutFragmentHomeBinding
@@ -39,7 +38,7 @@ class ScheduleFragment(private val context: AppCompatActivity) :
     private fun settingUpBinding() {
         val base = find<FrameLayout>(R.id.main)
         base.removeAllViews()
-        binding = LayoutFragmentHomeBinding.inflate(context.layoutInflater, base, false)
+        binding = LayoutFragmentHomeBinding.inflate(context.layoutInflater, base, true)
         binding.root.apply {
             alpha = (0f)
             translationY = 20f

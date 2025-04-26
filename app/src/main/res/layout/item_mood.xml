@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/materialCard"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/img"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="8dp"
+            android:background="@drawable/grey_bg"
+            android:gravity="center"
+            android:text="😩"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--<com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/img"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="#22aaaaaa"
+            android:src="@drawable/task_checklist"
+            app:contentPadding="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full" />
+-->
+        <TextView
+            android:id="@+id/serName"
+            style="@style/textHeading.Small"
+            android:layout_width="0dp"
+            android:layout_marginStart="10dp"
+            android:maxLines="1"
+            android:text="Sad"
+            app:layout_constraintBottom_toTopOf="@id/suggestion"
+            app:layout_constraintEnd_toStartOf="@id/ivMore"
+            app:layout_constraintStart_toEndOf="@id/img"
+            app:layout_constraintTop_toTopOf="@id/img"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/suggestion"
+            style="@style/textBody.VerySmall"
+            android:layout_width="0dp"
+            android:lines="1"
+            android:text="Suggestion Suggestion Suggestion Suggestion "
+            app:layout_constraintBottom_toBottomOf="@id/img"
+            app:layout_constraintEnd_toStartOf="@id/adaptiveSuggestion"
+            app:layout_constraintStart_toStartOf="@id/serName"
+            app:layout_constraintTop_toBottomOf="@id/serName"
+            app:layout_constraintWidth="1" />
+
+        <TextView
+            android:id="@+id/adaptiveSuggestion"
+            style="@style/textBody.VerySmall"
+            android:layout_width="0dp"
+            android:maxLines="1"
+            android:text="\u25cf Adaptive suggestion"
+            app:layout_constraintBottom_toBottomOf="@id/suggestion"
+            app:layout_constraintEnd_toStartOf="@id/ivMore"
+            app:layout_constraintStart_toEndOf="@id/suggestion"
+            app:layout_constraintTop_toTopOf="@id/suggestion"
+            app:layout_constraintWidth="1" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivMore"
+            style="@style/selectableIcon"
+            android:layout_marginTop="0dp"
+            android:src="@drawable/round_more_vert_24"
+            app:layout_constraintBottom_toBottomOf="@id/img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="-1"
+            app:layout_constraintStart_toEndOf="@id/serName"
+            app:layout_constraintTop_toTopOf="@id/img" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
