@@ -1,6 +1,7 @@
 package com.softec.lifeaiassistant.customClasses
 
 import android.content.Context
+import android.content.Intent
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +35,7 @@ class AppFragment @JvmOverloads constructor(context: Context, attrs: AttributeSe
         }
     }
     fun visible (show: Boolean) = if (show) load() else isVisible = false
+
 }
 // this one is simpler form without providing any extra methods .. oky? yes
 //abstract class AppFragmentLoader2 (@LayoutRes val layout: Int) { abstract fun onCreate (v: View) }

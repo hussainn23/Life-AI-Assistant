@@ -4,15 +4,24 @@ package com.softec.lifeaiassistant.fragments
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.ContentValues
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.CountDownTimer
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.view.animation.OvershootInterpolator
 import android.widget.EditText
 import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity.RESULT_OK
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.kizitonwose.calendar.core.WeekDay
 import com.kizitonwose.calendar.view.WeekDayBinder
@@ -28,8 +37,10 @@ import java.util.Calendar
 import java.util.Locale
 
 
-class TaskFragment(private val context: AppCompatActivity) :
+class TaskFragment(private val context: AppCompatActivity, private val imagePickerLauncher: ActivityResultLauncher<Intent>) :
     AppFragmentLoader(R.layout.layout_fragment_home) {
+
+
 
     private lateinit var binding: FragmentTaskBinding
 
@@ -51,8 +62,14 @@ class TaskFragment(private val context: AppCompatActivity) :
 
     private fun initiateLayout() {
         settingUpBinding()
-
     }
+
+    fun onImageSelected(selectedImageUri: Uri?) {
+        if (selectedImageUri != null) {
+            Toast.makeText(context, "Image Selected: $selectedImageUri", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     private fun settingUpBinding() {
         val base = find<FrameLayout>(R.id.main)
@@ -78,6 +95,7 @@ class TaskFragment(private val context: AppCompatActivity) :
                 layHrs.setOnClickListener {
                     showDatePickerDialog(etHrs)
                 }
+                ivCamera.setOnClickListener { openGallery() }
                 etHrs.setOnClickListener {
                     showDatePickerDialog(etHrs)
                 }
@@ -87,6 +105,16 @@ class TaskFragment(private val context: AppCompatActivity) :
             dialog.show()
         }
 
+    }
+
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        imagePickerLauncher.launch(intent)
+
+        /*ImagePicker.with(context)
+            .galleryOnly()
+            .crop()
+            .start(GALLERY_IMAGE_PICK_REQUEST_CODE)*/
     }
 
 
@@ -173,4 +201,8 @@ class TaskFragment(private val context: AppCompatActivity) :
     }
 
 
+    companion object {
+        private const val GALLERY_IMAGE_PICK_REQUEST_CODE = 101
+        private const val CAMERA_IMAGE_PICK_REQUEST_CODE = 102
+    }
 }
