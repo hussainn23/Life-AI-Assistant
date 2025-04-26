@@ -1,4 +1,5 @@
 package com.softec.lifeaiassistant.roomDatabase
+/*
 
 import android.content.Context
 import androidx.room.Database
@@ -35,3 +36,4 @@ abstract class AssistantDatabase : RoomDatabase() {
     }
 
 }
+*/

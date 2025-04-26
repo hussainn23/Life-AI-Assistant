@@ -1,16 +1,25 @@
 package com.softec.lifeaiassistant.repository
 
 import android.content.ContentValues.TAG
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.firestore.FirebaseFirestore
+import com.softec.lifeaiassistant.customClasses.AuthResult
+import com.softec.lifeaiassistant.customClasses.AuthenticationResponses
 import com.softec.lifeaiassistant.models.ModelUser
+import kotlinx.coroutines.tasks.await
 import java.util.Base64
 import kotlin.experimental.xor
 
 class AuthRepository {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val database: DatabaseReference = FirebaseDatabase.getInstance().getReference("Users")
+    private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun createUser(
         name: String,
         email: String,
@@ -32,8 +41,10 @@ class AuthRepository {
 
                     user.updateProfile(profileUpdates).addOnCompleteListener { profileTask ->
                         if (profileTask.isSuccessful) {
-                            // Save user details in the database
-                            database.child("users").child(userId).setValue(userData)
+                            // Save user details in Firestore
+                            firestore.collection("Users")
+                                .document(userId)
+                                .set(userData)
                                 .addOnCompleteListener { dbTask ->
                                     if (dbTask.isSuccessful) {
                                         user.sendEmailVerification()
@@ -58,6 +69,7 @@ class AuthRepository {
             }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun generateHash(input: String, key: String): String {
         val inputBytes = input.toByteArray(Charsets.UTF_8)
         val keyBytes = key.toByteArray(Charsets.UTF_8)
@@ -100,26 +112,18 @@ class AuthRepository {
         val user = auth.currentUser ?: return false
         Log.e(TAG, "getOnBoardingStatusFromFirebase: User is not Null -> ${auth.uid}")
         val userId = user.uid
-        val databaseRef = FirebaseDatabase.getInstance()
-            .getReference("UsersResponses")
-            .child(userId)
+        val documentRef = firestore.collection("UsersResponses").document(userId)
 
         return try {
-            val snapshot = databaseRef.get().await()
-            Log.e(TAG, "getOnBoardingStatusFromFirebase: snapShot : ${snapshot.exists()}")
+            val snapshot = documentRef.get().await()
+            Log.e(TAG, "getOnBoardingStatusFromFirebase: snapShot exists: ${snapshot.exists()}")
             snapshot.exists()
         } catch (e: Exception) {
-            Log.e(TAG, "getOnBoardingStatusFromFirebase: snapShot : Exception Running")
+            Log.e(TAG, "getOnBoardingStatusFromFirebase: Exception running: ${e.message}")
             false
         }
     }
 
 }
 
-
-sealed class AuthenticationResponses<out T> {
-    data class Success<out T>(val data: T) : AuthenticationResponses<T>()
-    data class Error(val message: String) : AuthenticationResponses<Nothing>()
-    data object Loading : AuthenticationResponses<Nothing>()
-}
 

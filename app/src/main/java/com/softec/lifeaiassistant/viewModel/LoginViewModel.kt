@@ -3,6 +3,7 @@ package com.softec.lifeaiassistant.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.softec.lifeaiassistant.customClasses.AuthResult
 import com.softec.lifeaiassistant.repository.AuthRepository
 
 

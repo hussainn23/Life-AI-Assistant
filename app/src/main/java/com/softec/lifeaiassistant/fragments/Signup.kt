@@ -1,7 +1,5 @@
 package com.softec.lifeaiassistant.fragments
 
-
-
 import android.content.Context
 import android.os.Bundle
 import android.util.Patterns
@@ -13,12 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.digitaltrainer.customClasses.ErrorToast
 import com.example.digitaltrainer.customClasses.SuccessToast
-import com.example.digitaltrainer.databinding.FragmentSignupBinding
-import com.example.digitaltrainer.repositories.AuthRepository
-import com.example.digitaltrainer.viewModels.SignupViewModel
-import com.example.digitaltrainer.viewModels.factories.SignupViewModelFactory
-import com.example.digitaltrainer.viewModels.responsesClasses.AuthenticationResponses
+import com.softec.lifeaiassistant.customClasses.AuthenticationResponses
+import com.softec.lifeaiassistant.customClasses.SignupViewModelFactory
 import com.softec.lifeaiassistant.databinding.FragmentSignupBinding
+import com.softec.lifeaiassistant.repository.AuthRepository
+import com.softec.lifeaiassistant.viewModel.SignupViewModel
 
 class Signup : Fragment() {
 

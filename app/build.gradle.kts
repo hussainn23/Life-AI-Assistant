@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("org.jetbrains.kotlin.kapt")
+//    id("org.jetbrains.kotlin.kapt")
     alias(libs.plugins.google.gms.google.services)
 }
 
@@ -35,38 +35,48 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    buildFeatures{
-        viewBinding=true
+    buildFeatures {
+        viewBinding = true
     }
+
+
 }
 
 dependencies {
+
+    implementation("com.firebaseui:firebase-ui-auth:7.2.0")
+
+
     implementation(libs.generativeai)
+    implementation(libs.firebase.auth)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.common.jvm)
-    implementation(libs.room.common.jvm)
+
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.auth)
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
+    implementation(libs.firebase.database)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
-    implementation ("com.airbnb.android:lottie:4.2.2")
-    implementation ("com.google.code.gson:gson:2.8.8")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+    implementation("com.airbnb.android:lottie:4.2.2")
+    implementation("com.google.code.gson:gson:2.8.8")
 
-    implementation ("com.github.bumptech.glide:glide:4.15.0")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.0")
+    implementation("com.github.bumptech.glide:glide:4.15.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.15.0")
 
     //corutinse
 
-    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
 
     // ViewModel KTX (for viewModels() delegate)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
@@ -74,9 +84,6 @@ dependencies {
     // LiveData KTX (for LiveData observables)
     implementation(libs.androidx.lifecycle.livedata.ktx)
 
-
-    implementation("androidx.room:room-runtime:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
 
 
 }
