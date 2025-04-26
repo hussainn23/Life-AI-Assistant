@@ -1,60 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="15dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/materialCard"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="16dp">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/img"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/task_checklist"
-        app:contentPadding="10dp"
-        android:background="#22aaaaaa"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
 
-    <TextView android:id="@+id/serName"
-        style="@style/textHeading.Small"
-        android:text="Hair Cut"
-        android:layout_width="0dp"
-        android:maxLines="1"
-        android:layout_marginStart="10dp"
-        app:layout_constraintEnd_toStartOf="@id/price"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintBottom_toTopOf="@id/duration"
-        app:layout_constraintStart_toEndOf="@id/img"
-        app:layout_constraintTop_toTopOf="@id/img"
-        />
-    <TextView android:id="@+id/duration"
-        style="@style/textBody.VerySmall"
-        android:text="30 minutes"
-        android:layout_width="0dp"
-        android:maxLines="1"
-        app:layout_constraintTop_toBottomOf="@id/serName"
-        app:layout_constraintStart_toStartOf="@id/serName"
-        app:layout_constraintBottom_toBottomOf="@id/img"
-        />
-    <TextView android:id="@+id/price"
-        style="@style/textHeading.Small"
-        android:text="Rs.150"
-        android:maxLines="1"
-        app:layout_constraintHorizontal_bias="-1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/img"
-        app:layout_constraintStart_toEndOf="@id/serName"
-        app:layout_constraintTop_toTopOf="@id/img"
-        />
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/img"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="#22aaaaaa"
+            android:src="@drawable/task_checklist"
+            app:contentPadding="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full" />
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="?colorButtonNormal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/img"
-        android:layout_marginTop="15dp"/>
+        <TextView
+            android:id="@+id/serName"
+            style="@style/textHeading.Small"
+            android:layout_width="0dp"
+            android:layout_marginStart="10dp"
+            android:maxLines="1"
+            android:text="Buy milk tomorrow"
+            app:layout_constraintBottom_toTopOf="@id/duration"
+            app:layout_constraintEnd_toStartOf="@id/price"
+            app:layout_constraintStart_toEndOf="@id/img"
+            app:layout_constraintTop_toTopOf="@id/img"
+            app:layout_constraintVertical_chainStyle="packed" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/duration"
+            style="@style/textBody.VerySmall"
+            android:layout_width="0dp"
+            android:maxLines="1"
+            android:text="Shopping"
+            app:layout_constraintBottom_toBottomOf="@id/img"
+            app:layout_constraintStart_toStartOf="@id/serName"
+            app:layout_constraintTop_toBottomOf="@id/serName" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/price"
+            style="@style/selectableIcon"
+            android:layout_marginTop="0dp"
+            android:src="@drawable/round_more_vert_24"
+            app:layout_constraintBottom_toBottomOf="@id/img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="-1"
+            app:layout_constraintStart_toEndOf="@id/serName"
+            app:layout_constraintTop_toTopOf="@id/img" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

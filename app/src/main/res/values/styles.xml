@@ -321,7 +321,7 @@
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="strokeWidth">0dp</item>
-        <item name="cardBackgroundColor">?backgroundColor</item>
+        <item name="cardBackgroundColor">?cardBackgroundColor</item>
         <item name="android:pointerIcon">hand</item>
 
 
