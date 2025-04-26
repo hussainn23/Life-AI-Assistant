@@ -12,6 +12,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!--
 
         <TextView
             android:id="@+id/greetingText"
@@ -31,7 +32,62 @@
             android:text="Saturday, April 26, 2025"
             android:textColor="@android:color/darker_gray"
             android:textSize="14sp" />
+-->
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivProfilePic"
+                style="@style/selectableIcon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="0dp"
+                android:padding="1dp"
+                android:src="@drawable/user"
+                app:contentPadding="18dp"
+                app:strokeColor="?colorButtonNormal"
+                app:strokeWidth="1dp" />
+
+            <!-- Greeting and Date Vertical -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingHorizontal="10dp">
+
+                <TextView
+                    android:id="@+id/greetingText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Good Afternoon, Sara"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/dateText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Saturday, April 26, 2025"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+
+            <!-- Sun Icon Button -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivNotification"
+                style="@style/selectableIcon"
+                android:layout_marginTop="0dp"
+                android:src="@drawable/bell_notification_social_media" />
+        </LinearLayout>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -51,8 +107,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
+                    android:layout_height="300dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -64,28 +119,26 @@
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
-                    <LinearLayout
-                        android:id="@+id/viewAllTasksContainer"
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/stroke_bg"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:paddingHorizontal="16dp"
-                        android:paddingVertical="4dp">
+                        android:paddingVertical="4dp"
+                        android:text="View All"
+                        android:textSize="12sp" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="View All"
-                            android:textSize="12sp" />
-                    </LinearLayout>
 
                 </LinearLayout>
 
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/lineChart"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dp"
+                    lweigh
                     android:layout_marginVertical="8dp" />
 
                 <!--<RadioGroup
@@ -157,6 +210,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/stroke_bg"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:paddingHorizontal="16dp"
                         android:paddingVertical="4dp"
                         android:text="Details"
@@ -349,6 +404,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/stroke_bg"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:paddingHorizontal="16dp"
                         android:paddingVertical="4dp"
                         android:text="View All"
@@ -437,7 +494,6 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="16dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="1dp"
             app:cardUseCompatPadding="true">
@@ -467,6 +523,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/stroke_bg"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:paddingHorizontal="16dp"
                         android:paddingVertical="4dp"
                         android:text="View All"
@@ -518,10 +576,10 @@
                     <TextView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
                         android:background="@drawable/grey_bg"
                         android:gravity="center"
                         android:text="😊"
-                        android:layout_marginEnd="8dp"
                         android:textSize="24sp" />
 
 
@@ -548,7 +606,6 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="16dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="1dp"
             app:cardUseCompatPadding="true">
@@ -578,6 +635,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/stroke_bg"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:paddingHorizontal="16dp"
                         android:paddingVertical="4dp"
                         android:text="View All"
@@ -604,7 +663,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Pay internet bill"
-                            
+
                             android:textSize="12sp" />
 
                         <TextView
@@ -628,7 +687,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Doctor's appointment"
-                            
+
                             android:textSize="12sp" />
 
                         <TextView
@@ -652,7 +711,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Team lunch"
-                            
+
                             android:textSize="12sp" />
 
                         <TextView

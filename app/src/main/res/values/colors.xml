@@ -30,4 +30,12 @@
     <color name="shimmerColor">#99C2C2C2</color>
     <color name="grey">#F0EFEF</color>
 
+
+    <color name="chart_line">#2E3A59</color> <!-- Dark blue-gray line color -->
+    <color name="axis_line">#D8D8D8</color> <!-- Light gray for axis lines -->
+    <color name="grid_line">#E8E8E8</color> <!-- Very light gray for grid -->
+    <color name="text_primary">#2E3A59</color> <!-- Dark text -->
+    <color name="text_secondary">#8F9BB3</color> <!-- Lighter secondary text -->
+
 </resources>
+

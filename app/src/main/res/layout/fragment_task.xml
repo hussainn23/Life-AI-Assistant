@@ -67,7 +67,6 @@
                 android:layout_marginTop="5dp"
                 android:text="Today" />
 
-
             <com.kizitonwose.calendar.view.WeekCalendarView
                 android:id="@+id/weekCalendarView"
                 android:layout_width="0dp"
@@ -80,7 +79,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/today_label"
                 tools:listitem="@layout/calendar_day_layout"
-                tools:visibility="gone" />
+                 />
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -99,5 +98,15 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/plus"
+        app:backgroundTint="?colorPrimaryInverse"
+        android:layout_gravity="bottom|end"
+        android:id="@+id/fabAddTask"
+        app:tint="?backgroundColor"
+        android:layout_margin="16dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
