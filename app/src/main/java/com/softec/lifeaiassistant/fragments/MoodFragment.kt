@@ -9,7 +9,6 @@ import android.view.animation.OvershootInterpolator
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.Legend
@@ -20,13 +19,17 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.softec.lifeaiassistant.R
 import com.softec.lifeaiassistant.customClasses.AppFragmentLoader
+import com.softec.lifeaiassistant.customClasses.GeminiResponseFormatter
 import com.softec.lifeaiassistant.databinding.FragmentMoodBinding
+import com.softec.lifeaiassistant.geminiClasses.GetChatResponseText
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MoodFragment(private val context: AppCompatActivity) :
     AppFragmentLoader(R.layout.layout_fragment_home) {
 
     private lateinit var binding: FragmentMoodBinding
-
 
     override fun onCreate() {
         try {
@@ -162,9 +165,28 @@ class MoodFragment(private val context: AppCompatActivity) :
             val selectedText = selectedMoodText.text.toString()
 
             /// pass the selected text to api and get the suggestions and adaptive suggestions,
+            CoroutineScope(Dispatchers.Main).launch {
+                val query = """
+    You are a helpful assistant. Based on the user's current mood, suggest appropriate activities or ideas.
+
+    Mood: $selectedText
+
+    1. Provide 5 general suggestions that are suitable for this mood.
+    2. Provide 5 adaptive suggestions that are better personalized to the mood's intensity or type.
+
+    Each suggestion should be short, specific, and categorized under "Suggestion" or "Adaptive Suggestion".
+    Respond in a clean bullet point format.
+""".trimIndent()
+
+                val response = GetChatResponseText.getResponse("$query")
 
 
+                val result = GeminiResponseFormatter.parseSuggestions(response)
+                val suggestionsList = result.suggestions
+                val adaptiveSuggestionsList = result.adaptiveSuggestions
+                Log.d("TAG", "$suggestionsList \n $adaptiveSuggestionsList")
 
+            }
 
 
             bottomSheetDialog.dismiss()
