@@ -25,6 +25,7 @@ import com.softec.lifeaiassistant.customClasses.AuthResult
 import com.softec.lifeaiassistant.databinding.DialogForgotPasswordBinding
 import com.softec.lifeaiassistant.databinding.FragmentLoginBinding
 import com.softec.lifeaiassistant.repository.AuthRepository
+import com.softec.lifeaiassistant.ui.MainActivity
 import com.softec.lifeaiassistant.viewModel.LoginViewModel
 
 
@@ -212,7 +213,7 @@ class Login : Fragment() {
     }
 
     private fun navigateToNextScreen() {
-        //ActivityNavigator.startActivity(requireActivity(),WelcomeNote::class.java, clearStack = true)
+        ActivityNavigator.startActivity(requireActivity(),MainActivity::class.java, clearStack = true)
         requireActivity().finish()
     }
 

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/fragment_home"
+        android:icon="@drawable/round_home_24"
+        android:title="Home" />
+
+
+    <item
+        android:id="@+id/fragment_task"
+        android:icon="@drawable/task_checklist"
+        android:title="Tasks" />
+
+
+    <item
+        android:id="@+id/fragment_reminder"
+        android:icon="@drawable/alarm_clock"
+        android:title="Reminder"/>
+
+
+    <item
+        android:id="@+id/fragment_mood"
+        android:icon="@drawable/face_viewfinder"
+        android:title="Mood" />
+
+    <item
+        android:id="@+id/fragment_schedule"
+        android:icon="@drawable/calendar_clock"
+        android:title="Scheduling" />
+
+
+
+</menu>

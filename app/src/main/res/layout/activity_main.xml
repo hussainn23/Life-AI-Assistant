@@ -1,19 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    android:layout_height="match_parent">
+    <!--
+            <FrameLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:translationZ="-100dp"
+                app:layout_constraintBottom_toTopOf="@id/btmNav"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />-->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:translationZ="-100dp"
+        app:layout_constraintBottom_toTopOf="@id/btmNav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.softec.lifeaiassistant.customClasses.AppFragment
+            android:id="@+id/fragment_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?backgroundColor" />
+
+        <com.softec.lifeaiassistant.customClasses.AppFragment
+            android:id="@+id/fragment_task"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?backgroundColor" />
+
+        <com.softec.lifeaiassistant.customClasses.AppFragment
+            android:id="@+id/fragment_reminder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?backgroundColor" />
+
+        <com.softec.lifeaiassistant.customClasses.AppFragment
+            android:id="@+id/fragment_mood"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?backgroundColor" />
+
+        <com.softec.lifeaiassistant.customClasses.AppFragment
+            android:id="@+id/fragment_schedule"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?backgroundColor" />
+
+    </FrameLayout>
+
+    <!--
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/progress"
+                style="@style/loadingStyle"
+                app:layout_constraintBottom_toBottomOf="@id/fragment_container"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivMore"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:background="@drawable/selectable_bg"
+            android:src="@drawable/plus"
+            android:translationZ="0dp"
+            app:contentPadding="12dp"
+            app:layout_constraintBottom_toBottomOf="@id/btmNav"
+            app:layout_constraintEnd_toEndOf="@id/btmNav"
+            app:layout_constraintStart_toStartOf="@id/btmNav"
+            app:layout_constraintTop_toTopOf="@id/btmNav"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
+            />
+    -->
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/btmNav"
+        style="@style/Widget.Design.BottomNavigationView"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:background="?colorTertiary"
+        android:paddingTop="5dp"
+        android:translationZ="-10dp"
+        app:itemHorizontalTranslationEnabled="false"
+        app:itemIconSize="20dp"
+        app:itemIconTint="@color/selectable_color"
+        app:itemTextAppearanceActive="@style/textHeading.NormalStyle.Small"
+        app:itemTextAppearanceActiveBoldEnabled="false"
+        app:itemTextAppearanceInactive="@style/textHeading.NormalStyle.Small"
+        app:itemTextColor="@color/selectable_color"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:menu="@menu/btm_nav" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

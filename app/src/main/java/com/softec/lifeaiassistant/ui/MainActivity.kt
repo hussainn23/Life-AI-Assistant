@@ -1,21 +1,89 @@
 package com.softec.lifeaiassistant.ui
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.softec.lifeaiassistant.R
+import com.softec.lifeaiassistant.customClasses.AppFragment
+import com.softec.lifeaiassistant.databinding.ActivityMainBinding
+import com.softec.lifeaiassistant.fragments.HomeFragment
+import com.softec.lifeaiassistant.fragments.MoodFragment
+import com.softec.lifeaiassistant.fragments.ReminderFragment
+import com.softec.lifeaiassistant.fragments.ScheduleFragment
+import com.softec.lifeaiassistant.fragments.TaskFragment
+import com.softec.lifeaiassistant.viewModel.MainActivityViewModel
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
+    private lateinit var fragment_home: AppFragment
+    private lateinit var fragment_task: AppFragment
+    private lateinit var fragment_reminder: AppFragment
+    private lateinit var fragment_mood: AppFragment
+    private lateinit var fragment_schedule: AppFragment
+    private val viewModel: MainActivityViewModel by viewModels()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setupFragments()
+
+        binding.btmNav.setOnItemSelectedListener {
+            viewModel.onNavItemSelected(it.itemId)
+            true
+        }
+        viewModel.selectedNavItem.observe(this) { itemId ->
+            binding.btmNav.selectedItemId = itemId
+        }
+        binding.btmNav.setOnItemReselectedListener { }
+
+
+        viewModel.isHomeFragmentVisible.observe(this) { isVisible ->
+            fragment_home.visible(isVisible)
+        }
+        viewModel.isTaskFragmentVisible.observe(this) { isVisible ->
+            fragment_task.visible(isVisible)
+        }
+        viewModel.isReminderFragmentVisible.observe(this) { isVisible ->
+            fragment_reminder.visible(isVisible)
+        }
+        viewModel.isMoodFragmentVisible.observe(this) { isVisible ->
+            fragment_mood.visible(isVisible)
+        }
+        viewModel.isScheduleFragmentVisible.observe(this) { isVisible ->
+            fragment_schedule.visible(isVisible)
+        }
+
+        fragment_home.visible(true)
+
+    }
+
+    private fun setupFragments() {
+        fragment_home = findViewById(R.id.fragment_home)
+        fragment_task = findViewById(R.id.fragment_task)
+        fragment_reminder = findViewById(R.id.fragment_reminder)
+        fragment_mood = findViewById(R.id.fragment_mood)
+        fragment_schedule = findViewById(R.id.fragment_schedule)
+
+        fragment_home.onAppFragmentLoader = HomeFragment(this)
+        fragment_task.onAppFragmentLoader = TaskFragment(this)
+        fragment_reminder.onAppFragmentLoader = ReminderFragment(this)
+        fragment_mood.onAppFragmentLoader = MoodFragment(this)
+        fragment_schedule.onAppFragmentLoader = ScheduleFragment(this)
+
+    }
+
+
+    @Suppress("DEPRECATION")
+    override fun onBackPressed() {
+        if (!viewModel.onBackPressed()) {
+            super.onBackPressed()
+        } else {
+            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show()
         }
     }
 }
