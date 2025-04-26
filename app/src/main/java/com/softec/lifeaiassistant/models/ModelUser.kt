@@ -7,4 +7,5 @@ data class ModelUser(
     val userEmail: String = "",
     val passHash: String = "",
     val imageUrl: String = ""
+
 )
