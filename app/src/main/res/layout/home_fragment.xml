@@ -45,12 +45,13 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/ivProfilePic"
                 style="@style/selectableIcon"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:transitionName="img"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="0dp"
                 android:padding="1dp"
                 android:src="@drawable/user"
-                app:contentPadding="18dp"
+                app:contentPadding="15dp"
                 app:strokeColor="?colorButtonNormal"
                 app:strokeWidth="1dp" />
 
@@ -86,6 +87,7 @@
                 android:id="@+id/ivNotification"
                 style="@style/selectableIcon"
                 android:layout_marginTop="0dp"
+                app:contentPadding="10dp"
                 android:src="@drawable/bell_notification_social_media" />
         </LinearLayout>
 
@@ -107,7 +109,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <TextView
@@ -123,6 +125,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:background="@drawable/stroke_bg"
                         android:clickable="true"
                         android:focusable="true"
@@ -137,8 +140,7 @@
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/lineChart"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    lweigh
+                    android:layout_height="230dp"
                     android:layout_marginVertical="8dp" />
 
                 <!--<RadioGroup
@@ -275,7 +277,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     android:background="@drawable/grey_bg"
                     android:orientation="vertical"
                     android:paddingHorizontal="16dp"
@@ -323,7 +325,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     android:background="@drawable/grey_bg"
                     android:orientation="vertical"
                     android:paddingHorizontal="16dp"

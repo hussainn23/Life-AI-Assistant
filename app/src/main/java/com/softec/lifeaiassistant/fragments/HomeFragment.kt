@@ -18,9 +18,11 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.softec.lifeaiassistant.R
+import com.softec.lifeaiassistant.customClasses.ActivityNavigator
 import com.softec.lifeaiassistant.customClasses.AppFragmentLoader
 import com.softec.lifeaiassistant.databinding.HomeFragmentBinding
 import com.softec.lifeaiassistant.databinding.LayoutFragmentHomeBinding
+import com.softec.lifeaiassistant.ui.ActivityProfile
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -76,6 +78,9 @@ class HomeFragment(private val context: AppCompatActivity) :
             val formatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy")
             val formattedDate = currentDate.format(formatter)
             dateText.text = formattedDate
+            ivProfilePic.setOnClickListener {
+                ActivityNavigator.startActivity(context, ActivityProfile::class.java, binding.ivProfilePic)
+            }
         }
     }
 
