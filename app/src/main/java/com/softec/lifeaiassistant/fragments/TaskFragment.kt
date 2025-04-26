@@ -1,5 +1,6 @@
 package com.softec.lifeaiassistant.fragments
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.ContentValues
@@ -8,8 +9,10 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.speech.RecognizerIntent
+import android.os.Handler
+import android.os.Looper
 import android.speech.RecognitionListener
+import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.util.Log
 import android.view.View
@@ -20,11 +23,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import android.Manifest
-import android.os.Handler
-import android.os.Looper
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
@@ -35,12 +34,19 @@ import com.kizitonwose.calendar.view.WeekDayBinder
 import com.softec.lifeaiassistant.R
 import com.softec.lifeaiassistant.customClasses.AppFragmentLoader
 import com.softec.lifeaiassistant.customClasses.DayViewContainer
+import com.softec.lifeaiassistant.customClasses.StringFormatting
 import com.softec.lifeaiassistant.databinding.DialogAddTaskBinding
 import com.softec.lifeaiassistant.databinding.FragmentTaskBinding
+import com.softec.lifeaiassistant.geminiClasses.GetChatResponseText
+import com.softec.lifeaiassistant.models.TaskModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.temporal.WeekFields
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 
 class TaskFragment(private val context: AppCompatActivity) :
     AppFragmentLoader(R.layout.layout_fragment_home) {
@@ -119,7 +125,10 @@ class TaskFragment(private val context: AppCompatActivity) :
             dialogBinding = DialogAddTaskBinding.inflate(context.layoutInflater)
             dialog.setContentView(dialogBinding!!.root)
             dialogBinding?.apply {
-                layHrs.setOnClickListener {
+                etHrs.showSoftInputOnFocus = false
+                etHrs.isCursorVisible = false
+
+                etHrs.setOnClickListener {
                     showDatePickerDialog(etHrs)
                 }
 
@@ -132,7 +141,7 @@ class TaskFragment(private val context: AppCompatActivity) :
                 }
 
                 btnSave.setOnClickListener {
-
+                    collectDataForSaving(dialogBinding!!)
                 }
 
 
@@ -140,6 +149,55 @@ class TaskFragment(private val context: AppCompatActivity) :
                 btnCancel.setOnClickListener { dialog.dismiss() }
             }
             dialog.show()
+        }
+    }
+
+    private fun collectDataForSaving(dialogBinding: DialogAddTaskBinding) {
+        val taskContent = dialogBinding.etServiceName.text.toString()
+        val taskDate = dialogBinding.etHrs.text.toString()
+        if (taskContent.isEmpty()) {
+            dialogBinding.etServiceName.error = "Please enter task name"
+        } else if (taskDate.isEmpty()) {
+            dialogBinding.etHrs.error = "Please select date"
+        } else {
+            CoroutineScope(Dispatchers.Main).launch {
+                val query =
+                    """
+    You are an intelligent assistant.
+    
+    Based on the following rough task description, perform these actions:
+    
+    1. Suggest a short, clear, and natural human-like **Task Name**.
+    2. Identify the most suitable **Category** this task belongs to.
+    3. Write **simple bullet points** explaining how to accomplish the task.
+    
+    Important:
+    - Respond in this exact format (do not add any extra text or explanation):
+    
+    ```
+    Task Name: <Task Name Here>
+    Category: <Category Here>
+    Steps:
+    - Step 1
+    - Step 2
+    - Step 3
+    ```
+    
+    Here is the rough content about the task:
+    "$taskContent"
+    """
+
+                val response = GetChatResponseText.getResponse("$query")
+                val extractedDetails = StringFormatting.extractTaskDetails(response)
+
+                val taskName = extractedDetails.taskName
+                val category = extractedDetails.category
+                val stepsList = extractedDetails.steps
+
+                val taskModel = TaskModel(taskName = taskName, subCategory = category, checkList = stepsList.toString(), dueDate = taskDate, reminder = dialogBinding.reminder.isChecked.toString(), priority = dialogBinding.spinnerGender.selectedItem.toString())
+                Log.d("TAG", "collectDataForSaving: $taskModel")
+
+            }
         }
     }
 
@@ -158,7 +216,8 @@ class TaskFragment(private val context: AppCompatActivity) :
             )
             weekCalendarView.scrollToWeek(currentDate)
 
-            val selectedDate = arrayOf(LocalDate.now()) // Set the current date as the default selected date
+            val selectedDate =
+                arrayOf(LocalDate.now()) // Set the current date as the default selected date
 
             weekCalendarView.dayBinder = object : WeekDayBinder<DayViewContainer> {
                 override fun bind(container: DayViewContainer, day: WeekDay) {
@@ -234,7 +293,8 @@ class TaskFragment(private val context: AppCompatActivity) :
         try {
             val inputImage = InputImage.fromFilePath(context, imageUri)
 
-            val recognizer: TextRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+            val recognizer: TextRecognizer =
+                TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
 
             recognizer.process(inputImage)
                 .addOnSuccessListener { visionText ->
@@ -252,7 +312,11 @@ class TaskFragment(private val context: AppCompatActivity) :
 
     // Permission check for speech recognition
     private fun checkPermissionAndStartSpeechRecognition() {
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.RECORD_AUDIO
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
             // Launch the permission request
             requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
         } else {
@@ -266,26 +330,33 @@ class TaskFragment(private val context: AppCompatActivity) :
             SpeechRecognizer.ERROR_NETWORK_TIMEOUT -> {
                 showToast("Network timeout. Try again.")
             }
+
             SpeechRecognizer.ERROR_NETWORK -> {
                 showToast("Network error. Check your internet connection.")
             }
+
             SpeechRecognizer.ERROR_AUDIO -> {
                 showToast("Audio error. Please ensure your microphone is working.")
             }
+
             SpeechRecognizer.ERROR_CLIENT -> {
                 showToast("Client error. Restart the app and try again.")
             }
+
             SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> {
                 showToast("Speech timeout. Please speak again.")
             }
+
             SpeechRecognizer.ERROR_NO_MATCH -> {
                 showToast("No speech match found. Please speak clearly.")
             }
+
             SpeechRecognizer.ERROR_RECOGNIZER_BUSY -> {
                 showToast("Recognizer is busy. Please wait.")
                 // Try to release and reinitialize the recognizer
                 releaseAndReinitializeSpeechRecognizer()
             }
+
             else -> {
                 showToast("Unknown error occurred. Error code: $errorCode")
             }
@@ -311,10 +382,16 @@ class TaskFragment(private val context: AppCompatActivity) :
 
                 // Create an Intent for speech recognition
                 val recognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-                recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+                recognizerIntent.putExtra(
+                    RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+                )
                 recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
                 recognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1)
-                recognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, context.packageName)
+                recognizerIntent.putExtra(
+                    RecognizerIntent.EXTRA_CALLING_PACKAGE,
+                    context.packageName
+                )
                 recognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
                 recognizerIntent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Please speak now")
 
@@ -375,7 +452,8 @@ class TaskFragment(private val context: AppCompatActivity) :
             }
 
             override fun onPartialResults(partialResults: Bundle?) {
-                val matches = partialResults?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+                val matches =
+                    partialResults?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
                 if (!matches.isNullOrEmpty()) {
                     val recognizedText = matches[0]
                     Log.d("SpeechRecognizer", "Partial result: $recognizedText")

@@ -59,45 +59,44 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                app:startIconDrawable="@drawable/task_checklist_20dp"
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="@id/btnSave"
                 app:layout_constraintStart_toStartOf="@id/t3"
-                app:layout_constraintTop_toBottomOf="@id/t3">
+                app:layout_constraintTop_toBottomOf="@id/t3"
+                app:startIconDrawable="@drawable/task_checklist_20dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etServiceName"
                     style="@style/editTextOutlined"
-                    android:paddingEnd="90dp"
                     android:hint="But phone tomorrow"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:paddingEnd="90dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
 
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/ivMicrophone"
                 style="@style/backBtn"
-                app:contentPadding="10dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="5dp"
                 android:src="@drawable/round_mic_24"
+                app:contentPadding="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/laySerNm"
                 app:layout_constraintEnd_toStartOf="@id/ivCamera"
                 app:layout_constraintTop_toTopOf="@+id/laySerNm"
-                app:layout_constraintBottom_toBottomOf="@+id/laySerNm"
                 app:strokeWidth="0dp" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/ivCamera"
                 style="@style/backBtn"
-                app:contentPadding="10dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="5dp"
                 android:src="@drawable/round_camera_alt_24"
+                app:contentPadding="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/laySerNm"
                 app:layout_constraintEnd_toEndOf="@id/laySerNm"
                 app:layout_constraintTop_toTopOf="@+id/laySerNm"
-                app:layout_constraintBottom_toBottomOf="@+id/laySerNm"
                 app:strokeWidth="0dp" />
 
 
@@ -117,18 +116,18 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp"
                 app:hintEnabled="false"
-                app:startIconDrawable="@drawable/calendar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/t1"
-                app:layout_constraintTop_toBottomOf="@id/t1">
+                app:layout_constraintTop_toBottomOf="@id/t1"
+                app:startIconDrawable="@drawable/calendar">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etHrs"
+                    android:focusable="false"
                     style="@style/editTextOutlined"
                     android:hint="dd/mm/yyyy"
                     android:inputType="date" />
             </com.google.android.material.textfield.TextInputLayout>
-
 
 
             <TextView
@@ -154,11 +153,11 @@
                 app:layout_constraintTop_toBottomOf="@id/t4" />
 
             <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/reminder"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Set reminder"
                 android:checked="true"
-                android:id="@+id/reminder"
+                android:text="Set reminder"
                 app:layout_constraintEnd_toEndOf="@id/btnSave"
                 app:layout_constraintStart_toStartOf="@id/t1"
                 app:layout_constraintTop_toBottomOf="@id/spinnerGender" />
