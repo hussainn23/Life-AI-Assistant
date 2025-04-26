@@ -7,4 +7,54 @@
     android:layout_height="match_parent"
     tools:context=".ui.ActivitySplash">
 
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/img"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="-100dp"
+        android:alpha="1"
+        android:scaleX="1.3"
+        android:scaleY="1.3"
+        android:translationZ="0dp"
+        android:background="?backgroundColor"
+        android:translationY="10dp"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large" />
+
+    <TextView
+        android:id="@+id/tvAppName"
+        style="@style/textHeading.Large"
+        android:layout_marginStart="5dp"
+        android:alpha="0"
+        android:translationY="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img"
+        android:text="@string/app_name" />
+    <TextView
+        android:id="@+id/tvTagLine"
+        style="@style/textBody.Large"
+        android:layout_marginStart="5dp"
+        android:translationY="5dp"
+        android:alpha="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAppName"
+        android:text="tag_line" />
+
+
+    <View
+        android:id="@+id/animator"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:transitionName="animator"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

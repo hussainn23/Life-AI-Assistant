@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <color name="black">#FF000000</color>
     <color name="blackTransparent">#11000000</color>
     <color name="blackLight">#010101</color>
@@ -9,14 +8,14 @@
     <color name="lightBack">@color/white</color>
     <color name="background_secondary">#f0f3f8</color>
 
-    <color name="brand">#614eae</color>
-    <color name="brand_light">#99614eae</color>
-    <color name="brand_dark">#1A347E</color>
-    <color name="brandTrans">#11614eae</color>
+    <color name="brand">#316bfd</color>
+    <color name="brand_light">#99316bfd</color>
+    <color name="brand_dark">#316bfd</color>
+    <color name="brandTrans">#11316bfd</color>
 
-    <color name="textColor">#222</color>
+    <color name="textColor">#272829</color>
     <color name="darkBack">#131414</color>
-    <color name="textColorSecondary">#5a5a5a</color>
+    <color name="textColorSecondary">#5e5e5a</color>
     <color name="textColorSecondaryAlt">#afafaf</color>
 
 

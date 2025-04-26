@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.softec.lifeaiassistant.adapters.AuthenticationPagerAdapter
 import com.softec.lifeaiassistant.databinding.ActivityAuthenticationBinding
+import com.softec.lifeaiassistant.viewModel.AuthenticationActivityViewModel
 
 
 class AuthenticationActivity : AppCompatActivity() {
@@ -17,24 +18,6 @@ class AuthenticationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        /*setContentView(R.layout.layout_authentication_activity)
-        val parent = findViewById<NestedScrollView>(R.id.parent)
-        object : CountDownTimer(300,300){
-            override fun onTick(millisUntilFinished: Long) {}
-
-            override fun onFinish() {
-               val view : View = layoutInflater.inflate(R.layout.activity_authentication,parent, true)
-                view.apply {
-                    alpha = 0f
-                    translationY = 20f
-                }
-                parent.removeAllViews()
-                parent.addView(view)
-                view.animate().alpha(1f).translationY(0f).setInterpolator(OvershootInterpolator()).setDuration(300).start()
-
-            }
-
-        }.start()*/
 
         binding = ActivityAuthenticationBinding.inflate(layoutInflater)
         setContentView(binding.root)

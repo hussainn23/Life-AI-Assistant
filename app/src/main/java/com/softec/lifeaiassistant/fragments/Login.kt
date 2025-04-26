@@ -28,6 +28,10 @@ import com.example.digitaltrainer.viewModels.responsesClasses.AuthResult
 import com.firebase.ui.auth.AuthUI
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.softec.lifeaiassistant.R
+import com.softec.lifeaiassistant.customClasses.AppDialogBuilder
+import com.softec.lifeaiassistant.databinding.DialogForgotPasswordBinding
+import com.softec.lifeaiassistant.databinding.FragmentLoginBinding
+import com.softec.lifeaiassistant.viewModel.LoginViewModel
 
 
 @Suppress("DEPRECATION")
