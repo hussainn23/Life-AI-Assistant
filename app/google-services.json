@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "238996069246",
+    "project_id": "life-ai-assistant",
+    "storage_bucket": "life-ai-assistant.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:238996069246:android:c037522150cfab00ccf12f",
+        "android_client_info": {
+          "package_name": "com.softec.lifeaiassistant"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_6rCFy2Q7udugjaeg8tYY24CaMP5Qyn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

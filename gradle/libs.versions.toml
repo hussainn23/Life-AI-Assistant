@@ -13,6 +13,9 @@ activity = "1.10.1"
 constraintlayout = "2.2.1"
 roomCompiler = "2.7.1"
 roomCommonJvm = "2.7.1"
+roomCommonJvmVersion = "2.7.0"
+googleGmsGoogleServices = "4.4.2"
+firebaseFirestore = "25.1.4"
 
 [libraries]
 generativeai = { module = "com.google.ai.client.generativeai:generativeai", version.ref = "generativeai" }
@@ -29,8 +32,11 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
 androidx-room-common-jvm = { group = "androidx.room", name = "room-common-jvm", version.ref = "roomCommonJvm" }
+room-common-jvm = { group = "androidx.room", name = "room-common-jvm", version.ref = "roomCommonJvmVersion" }
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
 
