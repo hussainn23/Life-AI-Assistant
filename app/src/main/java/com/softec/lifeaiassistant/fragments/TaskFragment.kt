@@ -86,7 +86,9 @@ class TaskFragment(private val context: AppCompatActivity) :
         utils = Utils(context)
         adapter = TaskAdapter(sharedPrefManager.getTasks()!!.sortedByDescending { it.createdAt }, (object : OnOptionClickListener {
             override fun onOptionClick(task: TaskModel) {
-                Toast.makeText(context, "", Toast.LENGTH_SHORT).show()
+
+                //perform done , edit  and delete
+
             }
         }))
 
