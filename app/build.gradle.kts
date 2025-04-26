@@ -33,6 +33,9 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures{
+        viewBinding=true
+    }
 }
 
 dependencies {
@@ -45,4 +48,24 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation ("com.airbnb.android:lottie:4.2.2")
+    implementation ("com.google.code.gson:gson:2.8.8")
+
+    implementation ("com.github.bumptech.glide:glide:4.15.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.0")
+
+    //corutinse
+
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
+
+    // ViewModel KTX (for viewModels() delegate)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+    // LiveData KTX (for LiveData observables)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+
+
 }
