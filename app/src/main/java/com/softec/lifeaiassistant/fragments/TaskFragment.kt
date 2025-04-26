@@ -24,6 +24,9 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
@@ -32,6 +35,8 @@ import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import com.kizitonwose.calendar.core.WeekDay
 import com.kizitonwose.calendar.view.WeekDayBinder
 import com.softec.lifeaiassistant.R
+import com.softec.lifeaiassistant.adapters.OnOptionClickListener
+import com.softec.lifeaiassistant.adapters.TaskAdapter
 import com.softec.lifeaiassistant.customClasses.AppFragmentLoader
 import com.softec.lifeaiassistant.customClasses.DayViewContainer
 import com.softec.lifeaiassistant.customClasses.StringFormatting
@@ -39,10 +44,13 @@ import com.softec.lifeaiassistant.databinding.DialogAddTaskBinding
 import com.softec.lifeaiassistant.databinding.FragmentTaskBinding
 import com.softec.lifeaiassistant.geminiClasses.GetChatResponseText
 import com.softec.lifeaiassistant.models.TaskModel
+import com.softec.lifeaiassistant.utils.SharedPrefManager
 import com.softec.lifeaiassistant.utils.Utils
+import com.softec.lifeaiassistant.viewModel.TaskViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.temporal.WeekFields
@@ -56,16 +64,33 @@ class TaskFragment(private val context: AppCompatActivity) :
     private lateinit var binding: FragmentTaskBinding
     private var dialogBinding: DialogAddTaskBinding? = null
     private var speechRecognizer: SpeechRecognizer? = null
+    private lateinit var sharedPrefManager: SharedPrefManager
+    private lateinit var viewModel: TaskViewModel
+    private lateinit var dialog: BottomSheetDialog
+    private var tasksList = listOf<TaskModel>()
+    private lateinit var adapter: TaskAdapter
+
+
     private val RECORD_AUDIO_PERMISSION_CODE = 101
 
-    private  lateinit var  utils: Utils
+    private lateinit var utils: Utils
+
     // Permission launcher for recording audio
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
     override fun onCreate() {
 
+        sharedPrefManager = SharedPrefManager(context)
+        viewModel = ViewModelProvider(context)[TaskViewModel::class.java]
 
-        utils
+        utils = Utils(context)
+        adapter = TaskAdapter(sharedPrefManager.getTasks()!!.sortedByDescending { it.createdAt }, (object : OnOptionClickListener {
+            override fun onOptionClick(task: TaskModel) {
+                Toast.makeText(context, "", Toast.LENGTH_SHORT).show()
+            }
+        }))
+
+
         try {
             galleryLauncher = context.activityResultRegistry.register(
                 "galleryPicker",
@@ -107,10 +132,13 @@ class TaskFragment(private val context: AppCompatActivity) :
     }
 
     private fun initiateLayout() {
+
+
         settingUpBinding()
     }
 
     private fun settingUpBinding() {
+
         val base = find<FrameLayout>(R.id.main)
         base.removeAllViews()
         binding = FragmentTaskBinding.inflate(context.layoutInflater, base, true)
@@ -120,13 +148,27 @@ class TaskFragment(private val context: AppCompatActivity) :
             animate().translationY(0f).alpha(1f).setDuration(500)
                 .setInterpolator(OvershootInterpolator()).start()
         }
+
+
+
+
         doWork()
     }
 
     private fun doWork() {
+
+        val recyclerView = view!!.findViewById<RecyclerView>(R.id.rcv_progress)
+        adapter.updateList(sharedPrefManager.getTasks()!!)
+        recyclerView.adapter = adapter
+
+
+
+
+
+
         calendarViewSetting()
         binding.fabAddTask.setOnClickListener {
-            val dialog = BottomSheetDialog(context)
+            dialog = BottomSheetDialog(context)
             dialogBinding = DialogAddTaskBinding.inflate(context.layoutInflater)
             dialog.setContentView(dialogBinding!!.root)
             dialogBinding?.apply {
@@ -192,6 +234,7 @@ class TaskFragment(private val context: AppCompatActivity) :
     "$taskContent"
     """
 
+                utils.startLoadingAnimation()
                 val response = GetChatResponseText.getResponse("$query")
                 val extractedDetails = StringFormatting.extractTaskDetails(response)
 
@@ -199,8 +242,37 @@ class TaskFragment(private val context: AppCompatActivity) :
                 val category = extractedDetails.category
                 val stepsList = extractedDetails.steps
 
-                val taskModel = TaskModel(taskName = taskName, subCategory = category, checkList = stepsList.toString(), dueDate = taskDate, reminder = dialogBinding.reminder.isChecked.toString(), priority = dialogBinding.spinnerGender.selectedItem.toString())
+                val taskModel = TaskModel(
+                    taskContent = taskContent,
+                    taskName = taskName,
+                    subCategory = category,
+                    checkList = stepsList.toString(),
+                    dueDate = taskDate,
+                    reminder = dialogBinding.reminder.isChecked.toString(),
+                    priority = dialogBinding.spinnerGender.selectedItem.toString(),
+                    userId = sharedPrefManager.getUserId()!!,
+                )
+                viewModel.saveTask(taskModel)
+                Toast.makeText(context, "Task Saved", Toast.LENGTH_SHORT).show()
 
+                viewModel.getTasksList(sharedPrefManager.getUserId()).observe(context) { task ->
+                    task?.let {
+                        tasksList = it
+                        sharedPrefManager.saveTasks(tasksList)
+                    }
+                }
+                binding.rcvProgress.adapter = TaskAdapter(
+                    sharedPrefManager.getTasks()!!.sortedByDescending { it.createdAt },
+                    (object : OnOptionClickListener {
+                        override fun onOptionClick(task: TaskModel) {
+                            Toast.makeText(context, "", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                            ))
+
+
+                utils.endLoadingAnimation()
+                dialog.dismiss()
 
 
             }
@@ -250,9 +322,29 @@ class TaskFragment(private val context: AppCompatActivity) :
                         val previousSelectedDate = selectedDate[0]
                         selectedDate[0] = day.date
 
+
+                        val sdfInput = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()) // for user entered date
+                        val sdfDueDate = SimpleDateFormat("d/M/yyyy", Locale.getDefault()) // for dueDate from Firebase
+
+                        val selected = sdfInput.parse(selectedDate[0].toString()) // user entered date
+
+                        val filteredList = sharedPrefManager.getTasks()!!.filter { task ->
+                            val createdAtDate = task.createdAt!!.toDate() // Convert Firebase Timestamp to Date
+                            val dueDate = sdfDueDate.parse(task.dueDate)
+
+                            selected != null && createdAtDate.before(selected) && (dueDate == selected || dueDate.after(selected))
+
+                        }
+                        adapter.updateList(filteredList)
+
+
+
+
+                        Toast.makeText(context, ""+selectedDate[0], Toast.LENGTH_SHORT).show()
+
                         weekCalendarView.notifyDateChanged(previousSelectedDate)
                         weekCalendarView.notifyDateChanged(selectedDate[0])
-                    }
+                        }
                 }
 
                 override fun create(view: View): DayViewContainer {

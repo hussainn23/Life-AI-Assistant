@@ -50,6 +50,18 @@ class TaskRepo {
 
 
 
+    fun saveTask(task: TaskModel, saveResult: MutableLiveData<Result<Unit>>) {
+        val newDocRef = db.collection(Constants.TASK).document()
+        task.taskId = newDocRef.id
+        newDocRef.set(task)
+            .addOnSuccessListener {
+                saveResult.postValue(Result.success(Unit))
+            }
+            .addOnFailureListener { exception ->
+                saveResult.postValue(Result.failure(exception))
+            }
+    }
+
 
 
 

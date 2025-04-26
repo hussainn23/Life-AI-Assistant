@@ -90,7 +90,7 @@ class SharedPrefManager(context: Context) {
         editor.apply()
     }
 
-    fun getNotifications(): List<TaskModel>? {
+    fun getTasks(): List<TaskModel>? {
         val json = sharedPref.getString("task", null)
         val type = object : TypeToken<List<TaskModel>>() {}.type
         return if (json != null) {
