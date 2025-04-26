@@ -1,4 +1,9 @@
 package com.softec.lifeaiassistant.models
 
-class ModelUser {
-}
+
+
+@Entity(tableName = "assistant_tasks")
+data class ModelUser(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+)
