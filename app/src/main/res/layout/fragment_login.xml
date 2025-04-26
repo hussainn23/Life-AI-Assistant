@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.Login">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tLay1"
+        style="@style/textInputLayout"
+        android:layout_marginTop="20dp"
+        android:hint="Email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:placeholderText="Enter your email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:defaultFocusHighlightEnabled="true"
+            android:drawableStart="@drawable/envelope"
+            android:drawablePadding="10dp"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tLay2"
+        style="@style/textInputLayout"
+        android:layout_marginTop="10dp"
+        android:hint="Password"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tLay1"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="?colorSecondary"
+        app:placeholderText="Enter your password">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/lock"
+            android:drawablePadding="10dp"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkboxRemember"
+        style="@style/checkBoxStyle"
+        android:lines="1"
+        android:text="Remember me!"
+        app:layout_constraintBottom_toBottomOf="@id/btnForgotPass"
+        app:layout_constraintEnd_toStartOf="@id/btnForgotPass"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btnForgotPass" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLogin"
+        style="@style/btn_lwm"
+        android:layout_marginTop="20dp"
+        android:onClick="insertQuote"
+        android:text="Login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnForgotPass" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progressBar"
+        style="@style/circular_progress_indicator"
+        app:layout_constraintBottom_toBottomOf="@id/btnLogin"
+        app:layout_constraintEnd_toEndOf="@id/btnLogin"
+        app:layout_constraintStart_toStartOf="@id/btnLogin"
+        app:layout_constraintTop_toTopOf="@id/btnLogin" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnForgotPass"
+        style="@style/btn_lwm.txtbtn"
+        android:layout_marginTop="5dp"
+        android:paddingStart="5dp"
+        android:text="Forgot Password?"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tLay2" />
+
+    <TextView
+        android:id="@+id/t2"
+        style="@style/textBody"
+        android:layout_marginTop="8dp"
+        android:text="or login / signup via"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnLogin" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivGoogle"
+        style="@style/selectableIcon"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/icons8_google"
+        app:strokeWidth="1dp"
+        android:padding="1dp"
+        app:strokeColor="?colorButtonNormal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/t2"
+        />
+
+    <!--
+        <Button
+            android:id="@+id/ivGoogle"
+            style="@style/suppBtn"
+            android:layout_marginTop="8dp"
+            android:drawableLeft="@drawable/icons8_google"
+            android:text=" with Google account         "
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/t2" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

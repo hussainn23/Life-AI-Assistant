@@ -2,4 +2,11 @@
     <string name="app_name">Life AI Assistant</string>
     <string name="apiKey">AIzaSyCIsJvP69PQGQwG7NQqVLdEMBOlm5ToqRc</string>
 
+    <string name="login_msg1">Go ahead and provide your credentials</string>
+    <string name="login_msg2">Sign-In and never lose your progress</string>
+    <string name="signup_msg1">Go ahead and set up your account</string>
+    <string name="signup_msg2">Signup and enjoy the best learning experience</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

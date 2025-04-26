@@ -170,7 +170,7 @@
 
     </style>
 
-    <style name="SettingsButton" parent="Base.Theme.LifeAIAssistant">
+    <!--<style name="SettingsButton" parent="Base.Theme.LifeAIAssistant">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:clickable">true</item>
@@ -181,7 +181,7 @@
         <item name="android:drawablePadding">10dp</item>
         <item name="android:background">@drawable/selectable_bg_new</item>
         <item name="endIcon">@drawable/angle_small_right_1_</item>
-    </style>
+    </style>-->
     <!--        <item name="textColor">?android:textColor</item>-->
 
 
@@ -310,7 +310,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="lottie_autoPlay">true</item>
         <item name="lottie_loop">true</item>
-        <item name="lottie_rawRes">@raw/loading_animation</item>
+        <item name="lottie_rawRes">@raw/anim_loading</item>
     </style>
 
 
@@ -335,7 +335,7 @@
 
     <style name="selectableTextView" parent="textHeading.NormalStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:paddingVertical">20dp</item>
+        <item name="android:paddingVertical" tools:targetApi="26">20dp</item>
         <item name="android:paddingStart">20dp</item>
         <item name="android:paddingEnd">20dp</item>
         <item name="android:gravity">center_vertical</item>
