@@ -1,6 +1,7 @@
 package com.softec.lifeaiassistant.repository
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -81,12 +82,23 @@ class AuthRepository {
         return Base64.getEncoder().encodeToString(outputBytes)
     }
 
-    fun loginUser(email: String, password: String, callback: (AuthResult) -> Unit) {
+    fun loginUser(
+        context: Context,
+        email: String,
+        password: String,
+        callback: (AuthResult) -> Unit
+    ) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
                     if (user != null && user.isEmailVerified) {
+                        val sharedPref =
+                            context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                        sharedPref.edit()
+                            .putString("userId", user.uid)
+                            .apply()
+
                         callback(AuthResult.Success)
                     } else {
                         callback(AuthResult.EmailNotVerified)
@@ -96,6 +108,7 @@ class AuthRepository {
                 }
             }
     }
+
 
     fun sendPasswordResetEmail(email: String, callback: (AuthResult) -> Unit) {
         auth.sendPasswordResetEmail(email)
@@ -124,6 +137,5 @@ class AuthRepository {
         }
     }
 
+
 }
-
-

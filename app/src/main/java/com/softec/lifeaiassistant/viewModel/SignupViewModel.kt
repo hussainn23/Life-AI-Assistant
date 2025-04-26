@@ -23,4 +23,4 @@ class SignupViewModel(private val authRepository: AuthRepository) : ViewModel() 
         }
     }
 
-}
+}   

@@ -29,7 +29,7 @@ class Signup : Fragment() {
         binding = FragmentSignupBinding.inflate(inflater, container, false)
         val repository = AuthRepository()
         viewModel =
-            ViewModelProvider(this, SignupViewModelFactory(repository))[SignupViewModel::class.java]
+                ViewModelProvider(this, SignupViewModelFactory(repository))[SignupViewModel::class.java]
 
         setupObservers()
         binding.btnSignup.setOnClickListener { handleSignup() }

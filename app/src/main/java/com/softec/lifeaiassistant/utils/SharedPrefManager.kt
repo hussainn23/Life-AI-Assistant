@@ -2,6 +2,9 @@ package com.softec.lifeaiassistant.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
+import com.softec.lifeaiassistant.models.ModelUser
 
 class SharedPrefManager(context: Context) {
     private val sharedPref: SharedPreferences =
@@ -18,7 +21,25 @@ class SharedPrefManager(context: Context) {
     fun saveDocId(id: String) {
         editor.putString("docId", id).apply()
     }
+    fun saveUser(user: ModelUser) {
+        editor.putString("user", Gson().toJson(user))
+        editor.apply()
+    }
 
+
+    fun getUser(): ModelUser? {
+        val json = sharedPref.getString("user", null)
+        return if (json.isNullOrEmpty()) {
+            null
+        } else {
+            try {
+                Gson().fromJson(json, ModelUser::class.java)
+            } catch (e: JsonSyntaxException) {
+                e.printStackTrace()
+                null
+            }
+        }
+    }
     fun getDocId(): String? =
         sharedPref.getString("docId", null)
 
@@ -33,8 +54,8 @@ class SharedPrefManager(context: Context) {
         editor.putString("userName", name).apply()
     }
 
-    fun getUserName(): String? =
-        sharedPref.getString("userName", "")
+    fun getUserId(): String? =
+        sharedPref.getString("userId", "")
 
     fun saveUserEmail(email: String) {
         editor.putString("userEmail", email).apply()

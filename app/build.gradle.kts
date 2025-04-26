@@ -83,11 +83,11 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
 
-    // ViewModel KTX (for viewModels() delegate)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     // LiveData KTX (for LiveData observables)
     implementation(libs.androidx.lifecycle.livedata.ktx)
+
 
 
 

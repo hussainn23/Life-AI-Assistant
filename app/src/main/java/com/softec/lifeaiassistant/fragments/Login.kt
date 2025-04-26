@@ -18,6 +18,7 @@ import com.example.digitaltrainer.customClasses.SuccessToast
 import com.firebase.ui.auth.AuthUI
 
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.auth.FirebaseAuth
 import com.softec.lifeaiassistant.R
 import com.softec.lifeaiassistant.customClasses.ActivityNavigator
 import com.softec.lifeaiassistant.customClasses.AppDialogBuilder
@@ -53,7 +54,7 @@ class Login : Fragment() {
             val password = binding.etPassword.text.toString().trim()
             if (validateInput(email, password)) {
                 hideKeyboard()
-                viewModel.login(email, password)
+                viewModel.login(requireContext(),email, password)
             }
         }
 
@@ -98,7 +99,13 @@ class Login : Fragment() {
             when (result) {
                 is AuthResult.Success -> {
                     if (binding.checkboxRemember.isChecked) keepUserLogged(1)
+
+
+
+
                     navigateToNextScreen()
+
+
                 }
 
                 is AuthResult.EmailNotVerified -> {
@@ -264,6 +271,7 @@ class Login : Fragment() {
     }
 
     private fun keepUserLogged(value: Int) {
+
         requireContext().getSharedPreferences("Logged", Context.MODE_PRIVATE).edit()
             .putInt("isLogged", value).apply()
     }

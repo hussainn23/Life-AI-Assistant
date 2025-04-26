@@ -1,5 +1,6 @@
 package com.softec.lifeaiassistant.viewModel
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,10 +16,10 @@ class LoginViewModel(private val authRepository: AuthRepository) : ViewModel() {
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading
 
-    fun login(email: String, password: String) {
+    fun login(context: Context, email: String, password: String) {
         _loading.value = true
 
-        authRepository.loginUser(email, password) { result ->
+        authRepository.loginUser(context,email, password) { result ->
             _loading.value = false
             _loginResult.value = result
         }
