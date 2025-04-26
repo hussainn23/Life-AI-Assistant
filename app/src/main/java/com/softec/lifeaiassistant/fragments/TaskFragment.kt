@@ -39,6 +39,7 @@ import com.softec.lifeaiassistant.databinding.DialogAddTaskBinding
 import com.softec.lifeaiassistant.databinding.FragmentTaskBinding
 import com.softec.lifeaiassistant.geminiClasses.GetChatResponseText
 import com.softec.lifeaiassistant.models.TaskModel
+import com.softec.lifeaiassistant.utils.Utils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -57,10 +58,14 @@ class TaskFragment(private val context: AppCompatActivity) :
     private var speechRecognizer: SpeechRecognizer? = null
     private val RECORD_AUDIO_PERMISSION_CODE = 101
 
+    private  lateinit var  utils: Utils
     // Permission launcher for recording audio
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
     override fun onCreate() {
+
+
+        utils
         try {
             galleryLauncher = context.activityResultRegistry.register(
                 "galleryPicker",
@@ -195,7 +200,8 @@ class TaskFragment(private val context: AppCompatActivity) :
                 val stepsList = extractedDetails.steps
 
                 val taskModel = TaskModel(taskName = taskName, subCategory = category, checkList = stepsList.toString(), dueDate = taskDate, reminder = dialogBinding.reminder.isChecked.toString(), priority = dialogBinding.spinnerGender.selectedItem.toString())
-                Log.d("TAG", "collectDataForSaving: $taskModel")
+
+
 
             }
         }
