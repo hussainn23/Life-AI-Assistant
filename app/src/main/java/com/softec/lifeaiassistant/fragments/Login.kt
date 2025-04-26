@@ -38,7 +38,11 @@ class Login : Fragment() {
     private lateinit var viewModel: LoginViewModel
     private lateinit var bottomSheetDialog: BottomSheetDialog
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         animateParentEnter()
@@ -213,7 +217,11 @@ class Login : Fragment() {
     }
 
     private fun navigateToNextScreen() {
-        ActivityNavigator.startActivity(requireActivity(),MainActivity::class.java, clearStack = true)
+        ActivityNavigator.startActivity(
+            requireActivity(),
+            MainActivity::class.java,
+            clearStack = true
+        )
         requireActivity().finish()
     }
 
@@ -267,52 +275,51 @@ class Login : Fragment() {
 
 
     private fun animateParentEnter() {
-         binding.apply {
-             tLay1.apply {
-                 alpha = 0f
-                 translationY = 20f
-                 animate().alpha(1f).translationY(0f).setDuration(500).setStartDelay(100)
-                     .setInterpolator(FastOutSlowInInterpolator()).start()
-             }
-             tLay2.apply {
-                 alpha = 0f
-                 translationY = 20f
-                 animate().alpha(1f).translationY(0f).setDuration(500).setStartDelay(100)
-                     .setInterpolator(FastOutSlowInInterpolator()).start()
-             }
-             checkboxRemember.apply {
-                 alpha = 0f
-                 translationY = 20f
-                 animate().alpha(1f).translationY(0f).setDuration(500).setStartDelay(100)
-                     .setInterpolator(FastOutSlowInInterpolator()).start()
-             }
-             btnForgotPass.apply {
-                 alpha = 0f
-                 translationY = 20f
-                 animate().alpha(1f).translationY(0f).setDuration(500).setStartDelay(100)
-                     .setInterpolator(FastOutSlowInInterpolator()).start()
-             }
-             btnLogin.apply {
-                 alpha = 0f
-                 translationY = 20f
-                 animate().alpha(1f).translationY(0f).setDuration(500).setStartDelay(100)
-                     .setInterpolator(FastOutSlowInInterpolator()).start()
-             }
-             t2.apply {
-                 alpha = 0f
-                 translationY = 20f
-                 animate().alpha(1f).translationY(0f).setDuration(500).setStartDelay(100)
-                     .setInterpolator(FastOutSlowInInterpolator()).start()
-             }
-             ivGoogle.apply {
-                 alpha = 0f
-                 translationY = 20f
-                 animate().alpha(1f).translationY(0f).setDuration(500).setStartDelay(100)
-                     .setInterpolator(FastOutSlowInInterpolator()).start()
-             }
-         }
+        binding.apply {
+            tLay1.apply {
+                alpha = 0f
+                translationY = 20f
+                animate().alpha(1f).translationY(0f).setDuration(500).setStartDelay(100)
+                    .setInterpolator(FastOutSlowInInterpolator()).start()
+            }
+            tLay2.apply {
+                alpha = 0f
+                translationY = 20f
+                animate().alpha(1f).translationY(0f).setDuration(500).setStartDelay(100)
+                    .setInterpolator(FastOutSlowInInterpolator()).start()
+            }
+            checkboxRemember.apply {
+                alpha = 0f
+                translationY = 20f
+                animate().alpha(1f).translationY(0f).setDuration(500).setStartDelay(100)
+                    .setInterpolator(FastOutSlowInInterpolator()).start()
+            }
+            btnForgotPass.apply {
+                alpha = 0f
+                translationY = 20f
+                animate().alpha(1f).translationY(0f).setDuration(500).setStartDelay(100)
+                    .setInterpolator(FastOutSlowInInterpolator()).start()
+            }
+            btnLogin.apply {
+                alpha = 0f
+                translationY = 20f
+                animate().alpha(1f).translationY(0f).setDuration(500).setStartDelay(100)
+                    .setInterpolator(FastOutSlowInInterpolator()).start()
+            }
+            t2.apply {
+                alpha = 0f
+                translationY = 20f
+                animate().alpha(1f).translationY(0f).setDuration(500).setStartDelay(100)
+                    .setInterpolator(FastOutSlowInInterpolator()).start()
+            }
+            ivGoogle.apply {
+                alpha = 0f
+                translationY = 20f
+                animate().alpha(1f).translationY(0f).setDuration(500).setStartDelay(100)
+                    .setInterpolator(FastOutSlowInInterpolator()).start()
+            }
+        }
     }
-
 
 
 }

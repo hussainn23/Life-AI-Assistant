@@ -12,6 +12,7 @@ import com.softec.lifeaiassistant.databinding.LayoutFragmentHomeBinding
 
 class HomeFragment(private val context: AppCompatActivity) :
     AppFragmentLoader(R.layout.layout_fragment_home) {
+//        home_fragment.xml
 
     private lateinit var binding: LayoutFragmentHomeBinding
 

@@ -45,6 +45,11 @@ android {
 dependencies {
 
     implementation("com.firebaseui:firebase-ui-auth:7.2.0")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+    implementation("com.airbnb.android:lottie:6.4.1")
+
+    implementation ("com.kizitonwose.calendar:view:2.6.0")
 
 
     implementation(libs.generativeai)

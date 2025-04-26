@@ -28,5 +28,6 @@
     <color name="cardBackground">#22aaaaaa</color>
 
     <color name="shimmerColor">#99C2C2C2</color>
+    <color name="grey">#F0EFEF</color>
 
 </resources>
