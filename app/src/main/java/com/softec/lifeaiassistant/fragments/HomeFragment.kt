@@ -4,17 +4,19 @@ import android.content.ContentValues
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.animation.OvershootInterpolator
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import com.softec.lifeaiassistant.R
 import com.softec.lifeaiassistant.customClasses.AppFragmentLoader
+import com.softec.lifeaiassistant.databinding.HomeFragmentBinding
 import com.softec.lifeaiassistant.databinding.LayoutFragmentHomeBinding
 
 class HomeFragment(private val context: AppCompatActivity) :
     AppFragmentLoader(R.layout.layout_fragment_home) {
 //        home_fragment.xml
 
-    private lateinit var binding: LayoutFragmentHomeBinding
+    private lateinit var binding: HomeFragmentBinding
 
 
     override fun onCreate() {
@@ -37,9 +39,9 @@ class HomeFragment(private val context: AppCompatActivity) :
     }
 
     private fun settingUpBinding() {
-        val base = find<NestedScrollView>(R.id.main)
+        val base = find<FrameLayout>(R.id.main)
         base.removeAllViews()
-        binding = LayoutFragmentHomeBinding.inflate(context.layoutInflater, base, false)
+        binding = HomeFragmentBinding.inflate(context.layoutInflater, base, true)
         binding.root.apply {
             alpha = (0f)
             translationY = 20f

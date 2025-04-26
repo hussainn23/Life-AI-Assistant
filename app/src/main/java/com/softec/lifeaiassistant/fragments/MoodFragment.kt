@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.animation.OvershootInterpolator
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import com.softec.lifeaiassistant.R
@@ -36,7 +37,7 @@ class MoodFragment(private val context: AppCompatActivity) :
     }
 
     private fun settingUpBinding() {
-        val base = find<NestedScrollView>(R.id.main)
+        val base = find<FrameLayout>(R.id.main)
         base.removeAllViews()
         binding = LayoutFragmentHomeBinding.inflate(context.layoutInflater, base, false)
         binding.root.apply {

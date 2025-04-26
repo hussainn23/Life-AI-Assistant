@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/main"
     android:layout_height="match_parent">
 
-    <TextView
-        style="@style/textHeading.Large"
-        android:text="Home Fragment"/>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/progress"
+        style="@style/loadingStyle"
+        android:layout_gravity="center"/>
 
-</androidx.core.widget.NestedScrollView>
+</FrameLayout>

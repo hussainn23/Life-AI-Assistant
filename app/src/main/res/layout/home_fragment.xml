@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".fragments.HomeFragment">
 
     <LinearLayout
@@ -20,7 +19,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="Good Afternoon, Sara"
-            android:textColor="@android:color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -38,9 +36,10 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
+            app:cardElevation="1dp"
+            app:cardUseCompatPadding="true"
 
             >
 
@@ -83,7 +82,7 @@
 
                 </LinearLayout>
 
-              <com.github.mikephil.charting.charts.LineChart
+                <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/lineChart"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -99,7 +98,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Complete project proposal"
-                        android:textColor="@android:color/black"
+                        
                         android:textSize="12sp" />
 
                     <RadioButton
@@ -107,7 +106,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Schedule team meeting"
-                        android:textColor="@android:color/black"
+                        
                         android:textSize="12sp" />
 
                     <RadioButton
@@ -115,7 +114,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Review quarterly goals"
-                        android:textColor="@android:color/black"
+                        
                         android:textSize="12sp" />
 
                 </RadioGroup>-->
@@ -128,7 +127,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="4dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="1dp"
             app:cardUseCompatPadding="true">
@@ -193,7 +192,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="7"
-                            android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -214,7 +212,7 @@
                         android:layout_marginBottom="8dp"
                         android:progress="58"
                         android:progressBackgroundTint="#D5D5D5"
-                        android:progressTint="@color/black" />
+                        android:progressTint="?colorPrimary" />
 
 
                 </LinearLayout>
@@ -244,7 +242,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="3"
-                            android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -263,7 +260,7 @@
                         android:layout_marginBottom="8dp"
                         android:progress="58"
                         android:progressBackgroundTint="#D5D5D5"
-                        android:progressTint="@color/black" />
+                        android:progressTint="?colorPrimary" />
 
 
                 </LinearLayout>
@@ -293,7 +290,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="68%"
-                            android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -308,7 +304,7 @@
                         android:layout_marginBottom="8dp"
                         android:progress="58"
                         android:progressBackgroundTint="#D5D5D5"
-                        android:progressTint="@color/black" />
+                        android:progressTint="?colorPrimary" />
 
 
                 </LinearLayout>
@@ -322,11 +318,10 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="1dp"
-            android:layout_marginTop="8dp"
-            app:cardUseCompatPadding="true"
-            >
+            app:cardUseCompatPadding="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -444,8 +439,8 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="16dp"
             app:cardCornerRadius="16dp"
-            app:cardUseCompatPadding="true"
-            app:cardElevation="1dp">
+            app:cardElevation="1dp"
+            app:cardUseCompatPadding="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -472,9 +467,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/stroke_bg"
-                        android:text="View All"
                         android:paddingHorizontal="16dp"
                         android:paddingVertical="4dp"
+                        android:text="View All"
                         android:textSize="12sp" />
 
                 </LinearLayout>
@@ -526,6 +521,7 @@
                         android:background="@drawable/grey_bg"
                         android:gravity="center"
                         android:text="😊"
+                        android:layout_marginEnd="8dp"
                         android:textSize="24sp" />
 
 
@@ -554,8 +550,8 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="16dp"
             app:cardCornerRadius="16dp"
-            app:cardUseCompatPadding="true"
-            app:cardElevation="1dp">
+            app:cardElevation="1dp"
+            app:cardUseCompatPadding="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -582,9 +578,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/stroke_bg"
-                        android:text="View All"
                         android:paddingHorizontal="16dp"
                         android:paddingVertical="4dp"
+                        android:text="View All"
                         android:textSize="12sp" />
 
                 </LinearLayout>
@@ -608,7 +604,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Pay internet bill"
-                            android:textColor="@android:color/black"
+                            
                             android:textSize="12sp" />
 
                         <TextView
@@ -632,7 +628,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Doctor's appointment"
-                            android:textColor="@android:color/black"
+                            
                             android:textSize="12sp" />
 
                         <TextView
@@ -656,7 +652,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Team lunch"
-                            android:textColor="@android:color/black"
+                            
                             android:textSize="12sp" />
 
                         <TextView

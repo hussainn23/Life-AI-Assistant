@@ -1,0 +1,6 @@
+<resources>
+    <!-- Base application theme. -->
+
+    <color name="grey">?cardBackgroundColor</color>
+
+</resources>

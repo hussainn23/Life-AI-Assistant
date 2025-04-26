@@ -48,4 +48,9 @@
         <item name="android:statusBarColor">?colorPrimaryInverse</item>
     </style>
 
+
+    <style name="Base.Theme.LifeAIAssistant.Home" parent="Base.Theme.LifeAIAssistant">
+        <item name="android:navigationBarColor">?colorTertiary</item>
+    </style>
+
 </resources>
