@@ -32,6 +32,8 @@ class MoodFragment(private val context: AppCompatActivity) :
         try {
             object : CountDownTimer(500, 500) {
                 override fun onTick(l: Long) {
+
+
                 }
 
                 override fun onFinish() {
@@ -159,11 +161,12 @@ class MoodFragment(private val context: AppCompatActivity) :
             val selectedEmoji = selectedMoodEmoji.text.toString()
             val selectedText = selectedMoodText.text.toString()
 
-            Toast.makeText(
-                context,
-                "Selected Mood: $selectedText $selectedEmoji",
-                Toast.LENGTH_SHORT
-            ).show()
+            /// pass the selected text to api and get the suggestions and adaptive suggestions,
+
+
+
+
+
             bottomSheetDialog.dismiss()
         }
 

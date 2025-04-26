@@ -26,21 +26,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fragment_mood: AppFragment
     private lateinit var fragment_schedule: AppFragment
     private val viewModel: MainActivityViewModel by viewModels()
-    private lateinit var imagePickerLauncher: ActivityResultLauncher<Intent>
 
-    private lateinit var taskFragment: TaskFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        imagePickerLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK && result.data != null) {
-                val selectedImageUri = result.data?.data
-                taskFragment.onImageSelected(selectedImageUri)
-            }
-        }
-        taskFragment = TaskFragment(this,imagePickerLauncher)
 
         setupFragments()
 
@@ -82,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         fragment_schedule = findViewById(R.id.fragment_schedule)
 
         fragment_home.onAppFragmentLoader = HomeFragment(this)
-        fragment_task.onAppFragmentLoader = taskFragment
+        fragment_task.onAppFragmentLoader = TaskFragment(this)
         fragment_reminder.onAppFragmentLoader = ReminderFragment(this)
         fragment_mood.onAppFragmentLoader = MoodFragment(this)
         fragment_schedule.onAppFragmentLoader = SummarizerFragment(this)

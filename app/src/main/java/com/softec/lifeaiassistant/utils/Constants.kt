@@ -8,4 +8,13 @@ object Constants {
     const val TIMEOUT_DURATION = 30L
     const val LOGIN = "login"
     const val PENDING = "pending"
+    const val USERID = "userId"
+
+
+    ////////////////////////////COLLECTION NAMES//////////////////
+
+    const val TASK = "Tasks"
+
+
+
 }

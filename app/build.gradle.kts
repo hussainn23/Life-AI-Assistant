@@ -74,7 +74,9 @@ dependencies {
 
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("com.airbnb.android:lottie:4.2.2")
-    implementation("com.google.code.gson:gson:2.8.8")
+    dependencies {
+        implementation ("com.google.code.gson:gson:2.10.1")
+    }
 
     implementation("com.github.bumptech.glide:glide:4.15.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.15.0")

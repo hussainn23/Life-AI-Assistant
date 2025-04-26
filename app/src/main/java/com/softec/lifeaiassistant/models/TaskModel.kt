@@ -14,5 +14,7 @@ data class TaskModel (
     val checkList:String="",
     val status:String=Constants.PENDING,
     val userId:String="",
-    val createdAt: Timestamp? = null
+    val createdAt: Timestamp? = null,
+    val update:Boolean=false
+
 )

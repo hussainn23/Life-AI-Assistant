@@ -9,13 +9,19 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
+import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import com.softec.lifeaiassistant.R
 import com.softec.lifeaiassistant.customClasses.AppFragmentLoader
+import com.softec.lifeaiassistant.customClasses.SignupViewModelFactory
 import com.softec.lifeaiassistant.databinding.HomeFragmentBinding
 import com.softec.lifeaiassistant.databinding.LayoutFragmentHomeBinding
 import com.softec.lifeaiassistant.models.ModelUser
+import com.softec.lifeaiassistant.models.TaskModel
 import com.softec.lifeaiassistant.utils.SharedPrefManager
+import com.softec.lifeaiassistant.viewModel.LoginViewModel
+import com.softec.lifeaiassistant.viewModel.SignupViewModel
+import com.softec.lifeaiassistant.viewModel.TaskViewModel
 
 class HomeFragment(private val context: AppCompatActivity) :
     AppFragmentLoader(R.layout.layout_fragment_home) {
@@ -23,14 +29,22 @@ class HomeFragment(private val context: AppCompatActivity) :
 
     private lateinit var binding: HomeFragmentBinding
     private lateinit var sharedPrefManager: SharedPrefManager
+    private var userId:String?=null
+    private lateinit var viewModel: TaskViewModel
+    private var tasksList = listOf<TaskModel>()
+
+
+
 
 
 
     override fun onCreate() {
         sharedPrefManager = SharedPrefManager(context)
         getUser(sharedPrefManager.getUserId())
+        userId=sharedPrefManager.getUserId()
 
-
+        viewModel = ViewModelProvider(context)[TaskViewModel::class.java]
+        fetchTasks()
         try {
             object : CountDownTimer(500, 500) {
                 override fun onTick(l: Long) {
@@ -48,6 +62,31 @@ class HomeFragment(private val context: AppCompatActivity) :
     private fun initiateLayout() {
         settingUpBinding()
     }
+
+
+
+
+
+    private fun fetchTasks(){
+        viewModel.getTasksList(userId).observe(context) { task ->
+            task?.let {
+                tasksList = it
+                sharedPrefManager.saveTasks(tasksList)
+            }
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     private fun settingUpBinding() {
         val base = find<FrameLayout>(R.id.main)
