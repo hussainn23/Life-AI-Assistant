@@ -1,9 +1,9 @@
 package com.softec.lifeaiassistant.roomDatabase
 
+import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import android.content.Context
 import com.softec.lifeaiassistant.dao.UserDao
 import com.softec.lifeaiassistant.models.ModelUser
 
@@ -11,6 +11,7 @@ import com.softec.lifeaiassistant.models.ModelUser
 abstract class AssistantDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
+
 
     companion object {
         @Volatile
