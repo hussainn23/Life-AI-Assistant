@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="black">#FF000000</color>
+    <color name="blackTransparent">#11000000</color>
+    <color name="blackLight">#010101</color>
+
     <color name="white">#FFFFFFFF</color>
+    <color name="lightBack">@color/white</color>
+    <color name="background_secondary">#f0f3f8</color>
+
+    <color name="brand">#614eae</color>
+    <color name="brand_light">#99614eae</color>
+    <color name="brand_dark">#1A347E</color>
+    <color name="brandTrans">#11614eae</color>
+
+    <color name="textColor">#222</color>
+    <color name="darkBack">#131414</color>
+    <color name="textColorSecondary">#5a5a5a</color>
+    <color name="textColorSecondaryAlt">#afafaf</color>
+
+
+
+    <color name="btmNavDark">#1e1f20</color>
+    <color name="colorError">#FF2718</color>
+    <color name="green">#019E44</color>
+    <color name="yellow">#FFC107</color>
+
+    <color name="cardBackground">#22aaaaaa</color>
+
+    <color name="shimmerColor">#99C2C2C2</color>
+
 </resources>
