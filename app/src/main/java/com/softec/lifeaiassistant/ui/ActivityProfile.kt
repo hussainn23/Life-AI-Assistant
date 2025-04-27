@@ -5,12 +5,14 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.appcompat.app.AppCompatDelegate
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.button.MaterialButton
 import com.softec.lifeaiassistant.R
+import com.softec.lifeaiassistant.customClasses.ActivityNavigator
 import com.softec.lifeaiassistant.databinding.ActivityProfileBinding
+import com.softec.lifeaiassistant.utils.SharedPrefManager
 
 class ActivityProfile : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
@@ -24,7 +26,7 @@ class ActivityProfile : AppCompatActivity() {
 
     private fun setupOnClicks() {
         binding.apply {
-            //layManageProfile.setOnClickListener { ActivityNavigator.startActivity(this@ActivityProfile,ManageProfile::class.java) }
+            layManageProfile.setOnClickListener { ActivityNavigator.startActivity(this@ActivityProfile,ActivityMangeProfile::class.java) }
             tvWebsite.setOnClickListener { openWebsite() }
             tvCall.setOnClickListener { callUs() }
             tvWhatsapp.setOnClickListener { whatsappUs() }
@@ -32,8 +34,29 @@ class ActivityProfile : AppCompatActivity() {
             tvCheckUpdates.setOnClickListener { checkForUpdates() }
             tvRate.setOnClickListener { rateUs() }
             tvShareApp.setOnClickListener { shareApp() }
-            
+            tvLogout.setOnClickListener { logoutUser() }
+            switchDark.setOnCheckedChangeListener({_,ischecked ->
+                if (ischecked) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                }
+            })
+
         }
+    }
+
+    private fun logoutUser() {
+        val dialog = BottomSheetDialog(this@ActivityProfile)
+        dialog.setContentView(R.layout.dialog_layout)
+        dialog.findViewById<MaterialButton>(R.id.btnCancel)?.setOnClickListener { dialog.dismiss() }
+        dialog.findViewById<MaterialButton>(R.id.btnLogout)?.setOnClickListener {
+            val pref = SharedPrefManager(this@ActivityProfile)
+            pref.clearAllPreferences()
+            dialog.dismiss()
+         }
+
+        dialog.show()
     }
 
     private fun shareApp() {
@@ -99,4 +122,6 @@ class ActivityProfile : AppCompatActivity() {
         }
         startActivity(intent)
     }
+
+
 }

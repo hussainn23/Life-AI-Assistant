@@ -10,14 +10,11 @@ import com.softec.lifeaiassistant.models.ChatDataClass
 import com.softec.lifeaiassistant.models.ModelUser
 import com.softec.lifeaiassistant.models.MoodModel
 import com.softec.lifeaiassistant.models.TaskModel
-
 class SharedPrefManager(context: Context) {
     private val sharedPref: SharedPreferences =
         context.getSharedPreferences(Constants.PREFERENCE, Context.MODE_PRIVATE)
     private val editor: SharedPreferences.Editor = sharedPref.edit()
     private val gson = Gson()
-
-
 
     fun saveId(id: String) {
         editor.putString("userId", id).apply()
@@ -29,11 +26,11 @@ class SharedPrefManager(context: Context) {
     fun saveDocId(id: String) {
         editor.putString("docId", id).apply()
     }
+
     fun saveUser(user: ModelUser) {
         editor.putString("user", Gson().toJson(user))
         editor.apply()
     }
-
 
     fun getUser(): ModelUser? {
         val json = sharedPref.getString("user", null)
@@ -48,6 +45,7 @@ class SharedPrefManager(context: Context) {
             }
         }
     }
+
     fun getDocId(): String? =
         sharedPref.getString("docId", null)
 
@@ -85,7 +83,6 @@ class SharedPrefManager(context: Context) {
         editor.clear().apply()
     }
 
-
     fun saveTasks(list: List<TaskModel>) {
         val json = gson.toJson(list)
         editor.putString("task", json)
@@ -101,8 +98,6 @@ class SharedPrefManager(context: Context) {
             emptyList()
         }
     }
-
-
 
     fun saveMoods(list: List<MoodModel>) {
         val json = gson.toJson(list)
@@ -120,11 +115,6 @@ class SharedPrefManager(context: Context) {
         }
     }
 
-
-
-
-
-
     fun saveChatList(list: List<ChatDataClass>) {
         val json = gson.toJson(list)
         editor.putString("chats", json)
@@ -141,5 +131,10 @@ class SharedPrefManager(context: Context) {
         }
     }
 
-
+    /**
+     * Clears all preferences from SharedPreferences storage
+     */
+    fun clearAllPreferences() {
+        editor.clear().apply()
+    }
 }

@@ -398,4 +398,18 @@
         <item name="android:background">@drawable/round_card_3sides_usr_chat</item>
     </style>
 
+    <style name="SettingsButton2" parent="Base.Theme.LifeAIAssistant">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:layout_marginHorizontal" tools:targetApi="26">16dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:background">@drawable/selectable_bg_new</item>
+        <item name="endIcon">@drawable/angle_small_right_1_</item>
+    </style>
+
+
 </resources>

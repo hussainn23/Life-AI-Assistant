@@ -10,7 +10,6 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.XAxis
@@ -20,42 +19,37 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.google.firebase.firestore.FirebaseFirestore
 import com.softec.lifeaiassistant.R
+import com.softec.lifeaiassistant.customClasses.ActivityNavigator
 import com.softec.lifeaiassistant.customClasses.AppFragmentLoader
-import com.softec.lifeaiassistant.customClasses.SignupViewModelFactory
+import com.softec.lifeaiassistant.customClasses.MainActivityInterface
 import com.softec.lifeaiassistant.databinding.HomeFragmentBinding
-import com.softec.lifeaiassistant.databinding.LayoutFragmentHomeBinding
 import com.softec.lifeaiassistant.models.ModelUser
 import com.softec.lifeaiassistant.models.MoodModel
 import com.softec.lifeaiassistant.models.TaskModel
+import com.softec.lifeaiassistant.ui.ActivityProfile
 import com.softec.lifeaiassistant.utils.SharedPrefManager
-import com.softec.lifeaiassistant.viewModel.LoginViewModel
 import com.softec.lifeaiassistant.viewModel.MoodViewModel
-import com.softec.lifeaiassistant.viewModel.SignupViewModel
 import com.softec.lifeaiassistant.viewModel.TaskViewModel
 import java.util.Calendar
-import java.util.Map
 
 class HomeFragment(private val context: AppCompatActivity) :
     AppFragmentLoader(R.layout.layout_fragment_home) {
-//        home_fragment.xml
-
+    //        home_fragment.xml
+    private lateinit var intrface: MainActivityInterface
     private lateinit var binding: HomeFragmentBinding
     private lateinit var sharedPrefManager: SharedPrefManager
-    private var userId:String?=null
+    private var userId: String? = null
     private lateinit var viewModel: TaskViewModel
     private lateinit var moodViewModel: MoodViewModel
     private var tasksList = listOf<TaskModel>()
     private var moodsList = listOf<MoodModel>()
 
 
-
-
-
-
     override fun onCreate() {
         sharedPrefManager = SharedPrefManager(context)
         getUser(sharedPrefManager.getUserId())
-        userId=sharedPrefManager.getUserId()
+        userId = sharedPrefManager.getUserId()
+        intrface = context as MainActivityInterface
 
         viewModel = ViewModelProvider(context)[TaskViewModel::class.java]
         moodViewModel = ViewModelProvider(context)[MoodViewModel::class.java]
@@ -81,10 +75,7 @@ class HomeFragment(private val context: AppCompatActivity) :
     }
 
 
-
-
-
-    private fun fetchTasks(){
+    private fun fetchTasks() {
         viewModel.getTasksList(userId).observe(context) { task ->
             task?.let {
                 tasksList = it
@@ -106,16 +97,6 @@ class HomeFragment(private val context: AppCompatActivity) :
     }
 
 
-
-
-
-
-
-
-
-
-
-
     private fun settingUpBinding() {
         val base = find<FrameLayout>(R.id.main)
         base.removeAllViews()
@@ -125,6 +106,13 @@ class HomeFragment(private val context: AppCompatActivity) :
             translationY = 20f
             animate().translationY(0f).alpha(1f).setDuration(500)
                 .setInterpolator(OvershootInterpolator()).start()
+        }
+        binding.apply {
+            ivProfilePic.setOnClickListener { ActivityNavigator.startActivity(context, ActivityProfile::class.java,it) }
+            viewTasksAll.setOnClickListener { intrface.switchTab(R.id.fragment_task) }
+            detailTask.setOnClickListener { intrface.switchTab(R.id.fragment_task) }
+            viewMoods.setOnClickListener { intrface.switchTab(R.id.fragment_mood) }
+            tvReminder.setOnClickListener { intrface.switchTab(R.id.fragment_mood) }
         }
         setupLineChart()
         updateTaskProgress()
@@ -142,7 +130,7 @@ class HomeFragment(private val context: AppCompatActivity) :
         val db = FirebaseFirestore.getInstance()
         val sharedPref = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val id = sharedPref.getString("userId", null)
-        Toast.makeText(context, "debug ; "+userId, Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "debug ; " + userId, Toast.LENGTH_SHORT).show()
 
 
         db.collection("Users") // Your collection name
@@ -159,9 +147,11 @@ class HomeFragment(private val context: AppCompatActivity) :
                         val user = document.toObject(ModelUser::class.java)
                         if (user != null) {
                             sharedPrefManager.saveUser(user)
-                            Toast.makeText(context, "User: ${user.userName}", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "User: ${user.userName}", Toast.LENGTH_SHORT)
+                                .show()
                         } else {
-                            Toast.makeText(context, "Failed to parse user", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Failed to parse user", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     }
                 } else {
@@ -258,7 +248,6 @@ class HomeFragment(private val context: AppCompatActivity) :
     }
 
 
-
     private fun getTasksGroupedByWeek(): List<Int> {
         val tasks = sharedPrefManager.getTasks()
         val weekCounts = MutableList(8) { 0 }
@@ -291,7 +280,6 @@ class HomeFragment(private val context: AppCompatActivity) :
         // Reverse the list so most recent week is last (if that's what you need)
         return weekCounts
     }
-
 
 
     private fun updateTaskProgress() {
@@ -387,7 +375,6 @@ class HomeFragment(private val context: AppCompatActivity) :
         binding.weeklyProgress.text = "$weeklyProgressPercentage%"
         binding.weeklyProgressBar.progress = weeklyProgressPercentage
     }
-
 
 
 }
