@@ -10,10 +10,11 @@ import com.softec.lifeaiassistant.models.TaskModel
 import com.google.android.material.imageview.ShapeableImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.button.MaterialButton
 
 // Interface for handling option clicks
 interface OnOptionClickListener {
-    fun onOptionClick(task: TaskModel)
+    fun onOptionClick(task: TaskModel, view: View)
 }
 
 class TaskAdapter(
@@ -42,9 +43,11 @@ class TaskAdapter(
 
         // Handle click event on the `options` icon
         holder.options.setOnClickListener {
-            optionClickListener.onOptionClick(task) // Pass the clicked task to the fragment
+            optionClickListener.onOptionClick(task,it) // Pass the clicked task to the fragment
         }
+
     }
+
 
     override fun getItemCount(): Int {
         return taskList.size

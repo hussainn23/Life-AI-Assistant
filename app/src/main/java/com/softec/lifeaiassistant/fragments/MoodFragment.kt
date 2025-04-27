@@ -35,7 +35,7 @@ class MoodFragment(private val context: AppCompatActivity) :
         try {
             object : CountDownTimer(500, 500) {
                 override fun onTick(l: Long) {
-                    
+
                 }
 
                 override fun onFinish() {
