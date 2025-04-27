@@ -162,6 +162,7 @@ class HomeFragment(private val context: AppCompatActivity) :
                 }
             }
     }
+
     private fun setupLineChart() {
         binding.apply {
 
