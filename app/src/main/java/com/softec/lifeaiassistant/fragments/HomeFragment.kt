@@ -32,6 +32,7 @@ import com.softec.lifeaiassistant.viewModel.LoginViewModel
 import com.softec.lifeaiassistant.viewModel.MoodViewModel
 import com.softec.lifeaiassistant.viewModel.SignupViewModel
 import com.softec.lifeaiassistant.viewModel.TaskViewModel
+import java.util.Calendar
 import java.util.Map
 
 class HomeFragment(private val context: AppCompatActivity) :
@@ -165,99 +166,129 @@ class HomeFragment(private val context: AppCompatActivity) :
 
     private fun setupLineChart() {
         binding.apply {
+            // Get tasks grouped by week
+            val taskCounts = getTasksGroupedByWeek()
 
-        // Fixed data matching the reference image style
-        val yearLabels = arrayOf("1st Week", "2012", "2013", "2014", "2015", "2016", "2017", "2018")
-        val dataValues = listOf(45f, 60f, 75f, 90f, 110f, 130f, 150f, 180f) // Sample market process data
+            val yearLabels = arrayOf("1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th")
 
-        // 1. Prepare chart entries
-        val entries = mutableListOf<Entry>()
-        dataValues.forEachIndexed { index, value ->
-            entries.add(Entry(index.toFloat(), value))
-        }
-
-        // 2. Create dataset with reference image styling
-        val dataSet = LineDataSet(entries, "Markets Process").apply {
-            color = ContextCompat.getColor(context, R.color.chart_line) // Dark line color
-            valueTextColor = ContextCompat.getColor(context, R.color.text_primary)
-            lineWidth = 2.5f
-            setCircleColor(ContextCompat.getColor(context, R.color.chart_line))
-            circleRadius = 4f
-            circleHoleRadius = 2f
-            setDrawCircleHole(true)
-            valueTextSize = 10f
-            mode = LineDataSet.Mode.LINEAR // Straight lines between points
-            setDrawFilled(false) // No fill under line
-            setDrawValues(false) // Don't show values above points
-            setDrawHorizontalHighlightIndicator(false)
-            setDrawVerticalHighlightIndicator(false)
-        }
-
-        // 3. Configure chart appearance to match reference
-        with(lineChart) {
-            data = LineData(dataSet)
-
-            // X-axis configuration (years at bottom)
-            xAxis.apply {
-                position = XAxis.XAxisPosition.BOTTOM
-                valueFormatter = IndexAxisValueFormatter(yearLabels)
-                granularity = 1f
-                setDrawGridLines(false)
-                labelCount = yearLabels.size
-                axisLineColor = ContextCompat.getColor(context, R.color.axis_line)
-                textColor = ContextCompat.getColor(context, R.color.text_primary)
-                textSize = 11f
-                setCenterAxisLabels(false)
-                yOffset = 8f // Slight padding
+            // Create the chart entries from the task counts
+            val entries = mutableListOf<Entry>()
+            taskCounts.forEachIndexed { index, count ->
+                entries.add(Entry(index.toFloat(), count.toFloat()))
             }
 
-            // Y-axis configuration (left only)
-            axisLeft.apply {
-                granularity = 20f // Major steps every 20 units
-                axisMinimum = 0f
-                axisMaximum = 200f // Fixed maximum to match reference style
-                axisLineColor = ContextCompat.getColor(context, R.color.axis_line)
-                textColor = ContextCompat.getColor(context, R.color.text_primary)
-                textSize = 11f
-                setDrawZeroLine(false)
-                setDrawGridLines(true)
-                gridColor = ContextCompat.getColor(context, R.color.grid_line)
-                gridLineWidth = 0.5f
-                setDrawAxisLine(false) // No left axis line
+            val dataSet = LineDataSet(entries, "Tasks Per Week").apply {
+                color = ContextCompat.getColor(context, R.color.chart_line)
+                valueTextColor = ContextCompat.getColor(context, R.color.text_primary)
+                lineWidth = 2.5f
+                setCircleColor(ContextCompat.getColor(context, R.color.chart_line))
+                circleRadius = 4f
+                circleHoleRadius = 2f
+                setDrawCircleHole(true)
+                valueTextSize = 10f
+                mode = LineDataSet.Mode.LINEAR
+                setDrawFilled(false)
+                setDrawValues(false)
+                setDrawHorizontalHighlightIndicator(false)
+                setDrawVerticalHighlightIndicator(false)
             }
 
-            // Additional chart settings
-            axisRight.isEnabled = false
-            description.isEnabled = false
-            legend.isEnabled = false // No legend
-            setTouchEnabled(true)
-            setPinchZoom(false)
+            with(lineChart) {
+                data = LineData(dataSet)
 
-            // Remove all extra elements
-            setDrawBorders(false)
-            setBorderWidth(0f)
-            setNoDataText("No data available")
-            setNoDataTextColor(ContextCompat.getColor(context, R.color.text_secondary))
+                xAxis.apply {
+                    position = XAxis.XAxisPosition.BOTTOM
+                    valueFormatter = IndexAxisValueFormatter(yearLabels)
+                    granularity = 1f
+                    setDrawGridLines(false)
+                    labelCount = yearLabels.size
+                    axisLineColor = ContextCompat.getColor(context, R.color.axis_line)
+                    textColor = ContextCompat.getColor(context, R.color.text_primary)
+                    textSize = 11f
+                    setCenterAxisLabels(false)
+                    yOffset = 8f
+                }
 
-            // Background styling
-            setBackgroundColor(Color.TRANSPARENT)
-            setDrawGridBackground(false)
+                axisLeft.apply {
+                    granularity = 5f // Set granularity to steps of 5
+                    axisMinimum = 0f
+                    axisMaximum = 18f // Maximum to represent up to 18 tasks
+                    axisLineColor = ContextCompat.getColor(context, R.color.axis_line)
+                    textColor = ContextCompat.getColor(context, R.color.text_primary)
+                    textSize = 11f
+                    setDrawZeroLine(false)
+                    setDrawGridLines(true)
+                    gridColor = ContextCompat.getColor(context, R.color.grid_line)
+                    gridLineWidth = 0.5f
+                    setDrawAxisLine(false)
+                }
 
-            // Remove right and top borders
-            xAxis.setDrawAxisLine(true)
-            axisLeft.setDrawAxisLine(false)
+                axisRight.isEnabled = false
+                description.isEnabled = false
+                legend.isEnabled = false
+                setTouchEnabled(true)
+                setPinchZoom(false)
 
-            // Add padding
-            extraLeftOffset = 5f
-            extraRightOffset = 15f
-            extraBottomOffset = 5f
+                setDrawBorders(false)
+                setBorderWidth(0f)
+                setNoDataText("No data available")
+                setNoDataTextColor(ContextCompat.getColor(context, R.color.text_secondary))
 
-            // Simple animation
-            animateY(800, Easing.Linear)
+                setBackgroundColor(Color.TRANSPARENT)
+                setDrawGridBackground(false)
 
-            invalidate()
+                xAxis.setDrawAxisLine(true)
+                axisLeft.setDrawAxisLine(false)
+
+                extraLeftOffset = 5f
+                extraRightOffset = 15f
+                extraBottomOffset = 5f
+
+                animateY(800, Easing.Linear)
+
+                invalidate()
+            }
         }
     }
 
+
+
+    private fun getTasksGroupedByWeek(): List<Int> {
+        val tasks = sharedPrefManager.getTasks()
+        val weekCounts = MutableList(8) { 0 }
+
+        // Get the current calendar week
+        val currentCalendar = Calendar.getInstance()
+        val currentWeekOfYear = currentCalendar.get(Calendar.WEEK_OF_YEAR)
+
+        tasks?.forEach { task ->
+            val taskTimestamp = task.createdAt
+            val taskDate = taskTimestamp?.toDate()
+
+            taskDate?.let {
+                val calendar = Calendar.getInstance().apply {
+                    time = taskDate
+                }
+
+                val taskWeekOfYear = calendar.get(Calendar.WEEK_OF_YEAR)
+
+                // Calculate relative week (how many weeks ago)
+                val weekDifference = currentWeekOfYear - taskWeekOfYear
+
+                // Only count tasks from the current week (0) and 7 weeks prior (1-7)
+                if (weekDifference in 0..7) {
+                    weekCounts[weekDifference] += 1
+                }
+            }
+        }
+
+        // Reverse the list so most recent week is last (if that's what you need)
+        return weekCounts
     }
+
+
+
+
+
+
 }
