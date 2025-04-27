@@ -83,7 +83,6 @@ class SummarizerFragment(private val context: AppCompatActivity) :
             (SharedPrefManager(context).getChats()?.toList() ?: emptyList()).toMutableList()
         adapter = ChatsAdapter(context, chatTextList)
         binding.rcvProgress.adapter = adapter
-        binding.rcvProgress.smoothScrollToPosition(chatTextList.size-1)
         binding.buttonSend.setOnClickListener {
             Log.e(TAG, "onCreate: Send btn Clicked")
             buttonSendChat()
