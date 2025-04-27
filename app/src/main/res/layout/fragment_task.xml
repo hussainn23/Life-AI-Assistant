@@ -57,9 +57,9 @@
 
 
             <TextView
-                android:id="@+id/tasks_pending"
+                android:id="@+id/totalTask"
                 style="@style/textBody"
-                android:text="3 bookings pending" />
+                android:text="Today task: 20" />
 
             <TextView
                 android:id="@+id/today_label"

@@ -198,6 +198,8 @@ class TaskFragment(private val context: AppCompatActivity) :
 
     private fun settingUpBinding() {
 
+
+
         val base = find<FrameLayout>(R.id.main)
         base.removeAllViews()
         binding = FragmentTaskBinding.inflate(context.layoutInflater, base, true)
@@ -210,6 +212,12 @@ class TaskFragment(private val context: AppCompatActivity) :
 
 
 
+        val sharedPrefManager=SharedPrefManager(context)
+        val total = sharedPrefManager.getTasks()
+            ?.filter { it.status == "pending" }
+            ?.size ?: 0
+
+        binding.totalTask.text = total.toString()
 
         doWork()
     }
