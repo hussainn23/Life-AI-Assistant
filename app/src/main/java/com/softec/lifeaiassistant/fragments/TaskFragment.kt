@@ -45,6 +45,8 @@ import com.softec.lifeaiassistant.databinding.DialogAddTaskBinding
 import com.softec.lifeaiassistant.databinding.FragmentTaskBinding
 import com.softec.lifeaiassistant.geminiClasses.GetChatResponseText
 import com.softec.lifeaiassistant.models.TaskModel
+import com.softec.lifeaiassistant.notifications.AccessToken
+import com.softec.lifeaiassistant.notifications.Fcm
 import com.softec.lifeaiassistant.utils.Constants
 import com.softec.lifeaiassistant.utils.SharedPrefManager
 import com.softec.lifeaiassistant.utils.Utils
@@ -84,6 +86,8 @@ class TaskFragment(private val context: AppCompatActivity) :
 
         sharedPrefManager = SharedPrefManager(context)
         viewModel = ViewModelProvider(context)[TaskViewModel::class.java]
+
+
 
         utils = Utils(context)
         adapter = TaskAdapter(
@@ -332,7 +336,6 @@ class TaskFragment(private val context: AppCompatActivity) :
                     sharedPrefManager.getTasks()!!.sortedByDescending { it.createdAt },
                     (object : OnOptionClickListener {
                         override fun onOptionClick(task: TaskModel, view: View) {
-                            Toast.makeText(context, "", Toast.LENGTH_SHORT).show()
                         }
                     }
                             ))
@@ -417,7 +420,6 @@ class TaskFragment(private val context: AppCompatActivity) :
 
 
 
-                        Toast.makeText(context, "" + selectedDate[0], Toast.LENGTH_SHORT).show()
 
                         weekCalendarView.notifyDateChanged(previousSelectedDate)
                         weekCalendarView.notifyDateChanged(selectedDate[0])
@@ -665,12 +667,25 @@ class TaskFragment(private val context: AppCompatActivity) :
         }
     }
 
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        // Properly release the speech recognizer to avoid memory leaks
-//        if (speechRecognizer != null) {
-//            speechRecognizer?.destroy()
-//            speechRecognizer = null
-//        }
-//    }
+    private fun sentNotification(
+        targetDeviceToken: String,
+        title: String,
+        body: String,
+    ) {
+        AccessToken.getAccessTokenAsync(object : AccessToken.AccessTokenCallback {
+            override fun onAccessTokenReceived(token: String?) {
+                if (token != null) {
+                    val fcm = Fcm()
+                    fcm.sendFCMNotification(targetDeviceToken, title, body, token)
+                } else {
+                    Log.e("sentNotification", "Failed to retrieve access token.")
+                }
+            }
+        })
+    }
+
+
+
+
+
 }

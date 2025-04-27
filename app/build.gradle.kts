@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-//    id("org.jetbrains.kotlin.kapt")
     alias(libs.plugins.google.gms.google.services)
 }
 
@@ -37,6 +36,9 @@ android {
     }
     buildFeatures {
         viewBinding = true
+    }
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
     }
 
 
