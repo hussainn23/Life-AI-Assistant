@@ -19,15 +19,16 @@ import android.view.View
 import android.view.animation.OvershootInterpolator
 import android.widget.EditText
 import android.widget.FrameLayout
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
@@ -44,6 +45,7 @@ import com.softec.lifeaiassistant.databinding.DialogAddTaskBinding
 import com.softec.lifeaiassistant.databinding.FragmentTaskBinding
 import com.softec.lifeaiassistant.geminiClasses.GetChatResponseText
 import com.softec.lifeaiassistant.models.TaskModel
+import com.softec.lifeaiassistant.utils.Constants
 import com.softec.lifeaiassistant.utils.SharedPrefManager
 import com.softec.lifeaiassistant.utils.Utils
 import com.softec.lifeaiassistant.viewModel.TaskViewModel
@@ -84,13 +86,14 @@ class TaskFragment(private val context: AppCompatActivity) :
         viewModel = ViewModelProvider(context)[TaskViewModel::class.java]
 
         utils = Utils(context)
-        adapter = TaskAdapter(sharedPrefManager.getTasks()!!.sortedByDescending { it.createdAt }, (object : OnOptionClickListener {
-            override fun onOptionClick(task: TaskModel) {
-
-                //perform done , edit  and delete
-
-            }
-        }))
+        adapter = TaskAdapter(
+            sharedPrefManager.getTasks()!!.sortedByDescending { it.createdAt },
+            (object : OnOptionClickListener {
+                override fun onOptionClick(task: TaskModel, view: View) {
+                    showPopupMenu(task, view)
+                }
+            })
+        )
 
 
         try {
@@ -132,6 +135,60 @@ class TaskFragment(private val context: AppCompatActivity) :
             Log.e(ContentValues.TAG, "initiateData: ${e.message}")
         }
     }
+
+
+    private fun showPopupMenu(task: TaskModel, view: View) {
+        val popupMenu = PopupMenu(context, view)
+        popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
+
+        popupMenu.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+
+                R.id.menu_done -> {
+                    FirebaseFirestore.getInstance().collection(Constants.TASK).document(task.taskId)
+                        .update("status", "completed").addOnCompleteListener({ task1 ->
+                            if (task1.isSuccessful){
+                                val taskViewModel = ViewModelProvider(context)[TaskViewModel::class.java]
+                                taskViewModel.getTasksList(task.userId).observe(context) { task ->
+                                    task?.let {
+                                        tasksList = it
+                                        sharedPrefManager.saveTasks(tasksList)
+                                    }
+                                }
+                                adapter.updateList(sharedPrefManager.getTasks()!!.sortedByDescending { it.createdAt })
+
+                                Toast.makeText(context, "Task completed", Toast.LENGTH_SHORT).show()
+                            }
+                            else{
+                                Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        )
+                    true
+                }
+
+                R.id.menu_delete -> {
+                    FirebaseFirestore.getInstance().collection(Constants.TASK).document(task.taskId)
+                        .delete()
+                    val taskViewModel = ViewModelProvider(context)[TaskViewModel::class.java]
+                    taskViewModel.getTasksList(task.userId).observe(context) { task ->
+                        task?.let {
+                            tasksList = it
+                            sharedPrefManager.saveTasks(tasksList)
+                        }
+                    }
+                    adapter.updateList(sharedPrefManager.getTasks()!!.sortedByDescending { it.createdAt })
+
+                    Toast.makeText(context, "Task deleted successfully.", Toast.LENGTH_SHORT).show()
+                    true
+                }
+
+                else -> false
+            }
+        }
+        popupMenu.show()
+    }
+
 
     private fun initiateLayout() {
 
@@ -266,7 +323,7 @@ class TaskFragment(private val context: AppCompatActivity) :
                 binding.rcvProgress.adapter = TaskAdapter(
                     sharedPrefManager.getTasks()!!.sortedByDescending { it.createdAt },
                     (object : OnOptionClickListener {
-                        override fun onOptionClick(task: TaskModel) {
+                        override fun onOptionClick(task: TaskModel, view: View) {
                             Toast.makeText(context, "", Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -325,16 +382,26 @@ class TaskFragment(private val context: AppCompatActivity) :
                         selectedDate[0] = day.date
 
 
-                        val sdfInput = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()) // for user entered date
-                        val sdfDueDate = SimpleDateFormat("d/M/yyyy", Locale.getDefault()) // for dueDate from Firebase
+                        val sdfInput = SimpleDateFormat(
+                            "yyyy-MM-dd",
+                            Locale.getDefault()
+                        ) // for user entered date
+                        val sdfDueDate = SimpleDateFormat(
+                            "d/M/yyyy",
+                            Locale.getDefault()
+                        ) // for dueDate from Firebase
 
-                        val selected = sdfInput.parse(selectedDate[0].toString()) // user entered date
+                        val selected =
+                            sdfInput.parse(selectedDate[0].toString()) // user entered date
 
                         val filteredList = sharedPrefManager.getTasks()!!.filter { task ->
-                            val createdAtDate = task.createdAt!!.toDate() // Convert Firebase Timestamp to Date
+                            val createdAtDate =
+                                task.createdAt!!.toDate() // Convert Firebase Timestamp to Date
                             val dueDate = sdfDueDate.parse(task.dueDate)
 
-                            selected != null && createdAtDate.before(selected) && (dueDate == selected || dueDate.after(selected))
+                            selected != null && createdAtDate.before(selected) && (dueDate == selected || dueDate.after(
+                                selected
+                            ))
 
                         }
                         adapter.updateList(filteredList)
@@ -342,11 +409,11 @@ class TaskFragment(private val context: AppCompatActivity) :
 
 
 
-                        Toast.makeText(context, ""+selectedDate[0], Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "" + selectedDate[0], Toast.LENGTH_SHORT).show()
 
                         weekCalendarView.notifyDateChanged(previousSelectedDate)
                         weekCalendarView.notifyDateChanged(selectedDate[0])
-                        }
+                    }
                 }
 
                 override fun create(view: View): DayViewContainer {

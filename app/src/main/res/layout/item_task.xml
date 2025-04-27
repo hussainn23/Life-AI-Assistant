@@ -15,6 +15,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="#22aaaaaa"
+            app:tint="?colorSecondary"
             android:src="@drawable/task_checklist"
             app:contentPadding="10dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +37,7 @@
 
         <TextView
             android:id="@+id/duration"
-            style="@style/textBody.VerySmall"
+            style="@style/textBody.Small"
             android:layout_width="0dp"
             android:maxLines="1"
             android:text="Shopping"
