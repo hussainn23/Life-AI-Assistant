@@ -123,14 +123,12 @@ class HomeFragment(private val context: AppCompatActivity) :
 
     private fun getUser(userId: String?) {
         if (userId.isNullOrEmpty()) {
-            Toast.makeText(context, "User ID is missing", Toast.LENGTH_SHORT).show()
             return
         }
 
         val db = FirebaseFirestore.getInstance()
         val sharedPref = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val id = sharedPref.getString("userId", null)
-        Toast.makeText(context, "debug ; " + userId, Toast.LENGTH_SHORT).show()
 
 
         db.collection("Users") // Your collection name
@@ -147,9 +145,8 @@ class HomeFragment(private val context: AppCompatActivity) :
                         val user = document.toObject(ModelUser::class.java)
                         if (user != null) {
                             sharedPrefManager.saveUser(user)
-                            Toast.makeText(context, "User: ${user.userName}", Toast.LENGTH_SHORT)
-                                .show()
                         } else {
+
                             Toast.makeText(context, "Failed to parse user", Toast.LENGTH_SHORT)
                                 .show()
                         }

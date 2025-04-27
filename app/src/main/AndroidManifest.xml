@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:name=".customClasses.LifeAIAssistant"
@@ -48,6 +50,19 @@
             android:theme="@style/Base.Theme.LifeAIAssistant.Home"
             android:windowSoftInputMode="adjustResize"
             tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+
+
+        <service
+            android:name=".notifications.NotificationService"
+            android:exported="false"
+            android:permission="com.google.android.c2dn.permission.Send">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.android.c2dn.intent.Reciever" />
+            </intent-filter>
+        </service>
+
     </application>
+
 
 </manifest>

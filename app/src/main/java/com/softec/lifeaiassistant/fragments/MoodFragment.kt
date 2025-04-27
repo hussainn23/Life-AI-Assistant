@@ -271,8 +271,10 @@ Notes:
 
                         viewModel.saveMoodData(moodModel)
                         utils.endLoadingAnimation()
-
                         loadMoods()
+
+                        displayPieChart()
+
 
                     } else {
                         utils.endLoadingAnimation()
@@ -314,6 +316,7 @@ Notes:
                                 }
                                 moodsAdapter.updateList(moodsList.sortedByDescending { it.createdAt })
 
+                                displayPieChart()
                                 Toast.makeText(context, "Task deleted successfully.", Toast.LENGTH_SHORT).show()
 
                             }else{

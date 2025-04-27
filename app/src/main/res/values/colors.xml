@@ -37,5 +37,14 @@
     <color name="text_primary">#2E3A59</color> <!-- Dark text -->
     <color name="text_secondary">#8F9BB3</color> <!-- Lighter secondary text -->
 
+
+
+
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_400">#BDBDBD</color>
+    <color name="gray_500">#9E9E9E</color>
+    <color name="gray_600">#757575</color>
+<!--       // <color name="text_secondary">#757575</color>-->
+
 </resources>
 
