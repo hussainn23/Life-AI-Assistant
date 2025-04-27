@@ -15,12 +15,6 @@
 
 
     <item
-        android:id="@+id/fragment_reminder"
-        android:icon="@drawable/alarm_clock"
-        android:title="Reminder"/>
-
-
-    <item
         android:id="@+id/fragment_mood"
         android:icon="@drawable/face_viewfinder"
         android:title="Mood" />
@@ -30,6 +24,11 @@
         android:icon="@drawable/calendar_clock"
         android:title="Summarizer" />
 
+
+    <item
+        android:id="@+id/fragment_reminder"
+        android:icon="@drawable/alarm_clock"
+        android:title="Reminder"/>
 
 
 </menu>
