@@ -75,6 +75,7 @@ class HomeFragment(private val context: AppCompatActivity) :
     }
 
 
+
     private fun fetchTasks() {
         viewModel.getTasksList(userId).observe(context) { task ->
             task?.let {
@@ -115,6 +116,10 @@ class HomeFragment(private val context: AppCompatActivity) :
             tvReminder.setOnClickListener { intrface.switchTab(R.id.fragment_mood) }
         }
         setupLineChart()
+
+        binding.greetingText.setText("Welcome, " + sharedPrefManager.getUser()?.userName)
+
+
         updateTaskProgress()
 
 

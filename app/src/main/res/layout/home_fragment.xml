@@ -47,7 +47,7 @@
                     android:id="@+id/greetingText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Good Afternoon, Sara"
+                    android:text="Hi Welcome, Sara"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 

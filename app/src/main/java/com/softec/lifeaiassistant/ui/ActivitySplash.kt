@@ -27,8 +27,7 @@ class ActivitySplash : AppCompatActivity() {
                 .setInterpolator(AccelerateDecelerateInterpolator()).start()
             tvAppName.animate().alpha(1f).translationY(0F).setDuration(1000)
                 .setInterpolator(OvershootInterpolator()).setStartDelay(1500).start()
-            tvTagLine.animate().alpha(1f).translationY(0F).setDuration(1000)
-                .setInterpolator(OvershootInterpolator()).setStartDelay(1500).start()
+
         }
 
 
