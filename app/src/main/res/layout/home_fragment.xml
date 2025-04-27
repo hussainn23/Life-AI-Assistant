@@ -103,6 +103,7 @@
 
 
                     <TextView
+                        android:id="@+id/viewTasksAll"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -189,6 +190,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/detailTask"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/stroke_bg"
@@ -381,6 +383,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/viewMoods"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/stroke_bg"
@@ -493,6 +496,7 @@
 
 
                     <TextView
+                        android:id="@+id/tvReminder"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/stroke_bg"

@@ -87,6 +87,7 @@
         style="@style/Widget.Design.BottomNavigationView"
         android:layout_width="0dp"
         android:layout_height="65dp"
+        android:paddingHorizontal="5dp"
         android:background="?colorTertiary"
         android:paddingTop="5dp"
         android:translationZ="-10dp"

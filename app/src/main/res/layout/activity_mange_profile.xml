@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.ActivityMangeProfile">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        style="@style/selectableIcon"
+        android:layout_marginStart="10dp"
+        android:id="@+id/ivBack" />
+
+    <TextView
+        style="@style/textHeading"
+        android:text="Change Profile"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp" />
+
+
+    <com.softec.lifeaiassistant.customClasses.ButtonMaterial2
+        android:id="@+id/changeName"
+        style="@style/SettingsButton2"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@id/t1"
+        app:startIcon="@drawable/user"
+        app:subtitle="Muhammad Awais Hassan"
+        app:title="Change Name"
+        tools:ignore="MissingConstraints" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/animator" />
+
+
+</LinearLayout>

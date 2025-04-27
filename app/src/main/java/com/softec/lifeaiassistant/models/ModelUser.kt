@@ -8,6 +8,4 @@ data class ModelUser(
     val passHash: String = "",
     val imageUrl: String = "",
     val update:Boolean=false
-
-
 )

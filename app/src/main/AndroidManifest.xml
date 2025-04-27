@@ -12,7 +12,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
-
     <application
         android:name=".customClasses.LifeAIAssistant"
         android:allowBackup="true"
@@ -24,6 +23,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LifeAIAssistant"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.ActivityMangeProfile"
+            android:exported="false" />
         <activity
             android:name=".ui.ActivityProfile"
             android:exported="false" />

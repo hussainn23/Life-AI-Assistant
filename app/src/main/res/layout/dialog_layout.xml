@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:background="@drawable/top_25dp_round"
+    android:backgroundTint="?colorTertiary"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="10dp">
+
+    <View
+        android:layout_width="30dp"
+        android:layout_height="3dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/round_20dp"
+        android:backgroundTint="#88aaaaaa" />
+
+
+    <TextView
+        android:id="@+id/tv1"
+        style="@style/textHeading.Large"
+        android:layout_marginTop="20dp"
+        android:drawableTop="@drawable/round_logout_24"
+        android:drawablePadding="10dp"
+        android:text="Logout?" />
+
+    <TextView
+        android:id="@+id/tv2"
+        style="@style/textBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="25dp"
+        android:text="Are you sure you want to log out? "
+        android:textAlignment="center" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogout"
+            style="@style/btn_lwm.outlined"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="10dp"
+            android:text="Yes, Logout" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCancel"
+            style="@style/btn_lwm"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="Cancel" />
+
+    </LinearLayout>
+
+</LinearLayout>

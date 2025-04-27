@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.softec.lifeaiassistant.R
 import com.softec.lifeaiassistant.customClasses.AppFragment
+import com.softec.lifeaiassistant.customClasses.MainActivityInterface
 import com.softec.lifeaiassistant.databinding.ActivityMainBinding
 import com.softec.lifeaiassistant.fragments.HomeFragment
 import com.softec.lifeaiassistant.fragments.MoodFragment
@@ -17,7 +18,7 @@ import com.softec.lifeaiassistant.fragments.SummarizerFragment
 import com.softec.lifeaiassistant.fragments.TaskFragment
 import com.softec.lifeaiassistant.viewModel.MainActivityViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainActivityInterface {
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var fragment_home: AppFragment
@@ -90,6 +91,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun switchTab(tab: Int) {
+        viewModel.onNavItemSelected(tab)
+    }
 
 
 }
