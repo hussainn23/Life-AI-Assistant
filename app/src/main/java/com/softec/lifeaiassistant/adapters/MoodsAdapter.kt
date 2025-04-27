@@ -13,7 +13,6 @@ import com.google.android.material.imageview.ShapeableImageView
 import com.softec.lifeaiassistant.R
 import com.softec.lifeaiassistant.models.MoodModel
 
-// Correct Interface
 interface OnMoodOptionClickListener {
     fun onOptionClicks(mood: MoodModel, view: View)
 }
@@ -55,13 +54,11 @@ class MoodsAdapter(
         val bottomSheetDialog = BottomSheetDialog(context)
         val view = LayoutInflater.from(context).inflate(R.layout.layout_show_mood_detial, null)
 
-        // Bind data to views
         view.findViewById<TextView>(R.id.img).text = getEmojiForMood(moodModel.mood)
         view.findViewById<TextView>(R.id.serName).text = moodModel.mood
         view.findViewById<TextView>(R.id.suggestion).text = moodModel.suggesstions
         view.findViewById<TextView>(R.id.adaptivesuggestion).text = moodModel.adaptiveSuggestions
 
-        // Hide adaptive suggestions section if empty
         if (moodModel.adaptiveSuggestions.isEmpty()) {
             view.findViewById<TextView>(R.id.tvadapsuggestion).visibility = View.GONE
             view.findViewById<TextView>(R.id.adaptivesuggestion).visibility = View.GONE
@@ -70,7 +67,6 @@ class MoodsAdapter(
         bottomSheetDialog.setContentView(view)
         bottomSheetDialog.show()
 
-        // Optional: Set peek height to show more content by default
         bottomSheetDialog.behavior.peekHeight =
             (Resources.getSystem().displayMetrics.heightPixels * 0.6).toInt()
     }

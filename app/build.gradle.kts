@@ -68,6 +68,7 @@ dependencies {
     implementation(libs.androidx.credentials.play.services.auth)
     implementation(libs.googleid)
     implementation(libs.firebase.database)
+    implementation(libs.firebase.messaging)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -89,9 +90,13 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     // LiveData KTX (for LiveData observables)
+
+
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation ("com.google.mlkit:text-recognition:16.0.0")
-
+    implementation("com.google.auth:google-auth-library-oauth2-http:1.22.0")
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
 
 

@@ -9,17 +9,14 @@ import com.softec.lifeaiassistant.R
 import com.softec.lifeaiassistant.models.TaskModel
 import com.google.android.material.imageview.ShapeableImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.android.material.button.MaterialButton
 
-// Interface for handling option clicks
 interface OnOptionClickListener {
     fun onOptionClick(task: TaskModel, view: View)
 }
 
 class TaskAdapter(
     private var taskList: List<TaskModel>,
-    private val optionClickListener: OnOptionClickListener // Pass the listener from the fragment/activity
+    private val optionClickListener: OnOptionClickListener
 ) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
     inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -36,14 +33,11 @@ class TaskAdapter(
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = taskList[position]
-
-        // Bind the data to the views
         holder.serName.text = task.taskName
         holder.subCategory.text = task.subCategory
 
-        // Handle click event on the `options` icon
         holder.options.setOnClickListener {
-            optionClickListener.onOptionClick(task,it) // Pass the clicked task to the fragment
+            optionClickListener.onOptionClick(task,it)
         }
 
     }
