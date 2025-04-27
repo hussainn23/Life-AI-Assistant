@@ -60,6 +60,8 @@ class HomeFragment(private val context: AppCompatActivity) :
         viewModel = ViewModelProvider(context)[TaskViewModel::class.java]
         moodViewModel = ViewModelProvider(context)[MoodViewModel::class.java]
         fetchTasks()
+
+
         try {
             object : CountDownTimer(500, 500) {
                 override fun onTick(l: Long) {
@@ -87,8 +89,10 @@ class HomeFragment(private val context: AppCompatActivity) :
             task?.let {
                 tasksList = it
                 sharedPrefManager.saveTasks(tasksList)
+
             }
         }
+
 
 
         moodViewModel.getMoodsList(sharedPrefManager.getUserId()).observe(context) { task ->
@@ -123,6 +127,8 @@ class HomeFragment(private val context: AppCompatActivity) :
                 .setInterpolator(OvershootInterpolator()).start()
         }
         setupLineChart()
+        updateTaskProgress()
+
 
     }
 
@@ -288,6 +294,99 @@ class HomeFragment(private val context: AppCompatActivity) :
 
 
 
+    private fun updateTaskProgress() {
+        val tasks = sharedPrefManager.getTasks() ?: emptyList()
+
+        // Calendar instances
+        val calendar = Calendar.getInstance()
+        val currentMonth = calendar.get(Calendar.MONTH)
+        val currentYear = calendar.get(Calendar.YEAR)
+        val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
+        val currentWeek = calendar.get(Calendar.WEEK_OF_YEAR)
+
+        // Filter tasks for the current month
+        val tasksThisMonth = tasks.filter { task ->
+            val taskDate = task.createdAt?.toDate()
+            if (taskDate != null) {
+                val taskCalendar = Calendar.getInstance().apply {
+                    time = taskDate
+                }
+                taskCalendar.get(Calendar.MONTH) == currentMonth &&
+                        taskCalendar.get(Calendar.YEAR) == currentYear
+            } else {
+                false
+            }
+        }
+
+        // Filter tasks for today
+        val todayTasks = tasksThisMonth.filter { task ->
+            val taskDate = task.createdAt?.toDate()
+            if (taskDate != null) {
+                val taskCalendar = Calendar.getInstance().apply {
+                    time = taskDate
+                }
+                taskCalendar.get(Calendar.DAY_OF_MONTH) == currentDay
+            } else {
+                false
+            }
+        }
+
+        // Filter tasks for this week
+        val thisWeekTasks = tasks.filter { task ->
+            val taskDate = task.createdAt?.toDate()
+            if (taskDate != null) {
+                val taskCalendar = Calendar.getInstance().apply {
+                    time = taskDate
+                }
+                taskCalendar.get(Calendar.WEEK_OF_YEAR) == currentWeek &&
+                        taskCalendar.get(Calendar.YEAR) == currentYear
+            } else {
+                false
+            }
+        }
+
+        // Count tasks
+        val totalTasksCount = tasksThisMonth.size
+        val completedTasksCount = tasksThisMonth.count { it.status == "completed" }
+
+        val todayTotalCount = todayTasks.size
+        val todayCompletedCount = todayTasks.count { it.status == "completed" }
+
+        val weeklyTotalCount = thisWeekTasks.size
+        val weeklyCompletedCount = thisWeekTasks.count { it.status == "completed" }
+
+        // Calculate progress percentages
+        val monthlyProgressPercentage = if (totalTasksCount > 0) {
+            (completedTasksCount * 100) / totalTasksCount
+        } else {
+            0
+        }
+
+        val todayProgressPercentage = if (todayTotalCount > 0) {
+            (todayCompletedCount * 100) / todayTotalCount
+        } else {
+            0
+        }
+
+        val weeklyProgressPercentage = if (weeklyTotalCount > 0) {
+            (weeklyCompletedCount * 100) / weeklyTotalCount
+        } else {
+            0
+        }
+
+        // Update UI elements using binding
+        binding.tasks.text = completedTasksCount.toString()
+        binding.totalTask.text = "/$totalTasksCount"
+        binding.taskProgressBar.progress = monthlyProgressPercentage
+
+        // Update today's tasks
+        binding.todayTasks.text = "$todayCompletedCount/$todayTotalCount"
+        binding.todayProgessbar.progress = todayProgressPercentage
+
+        // Update weekly progress
+        binding.weeklyProgress.text = "$weeklyProgressPercentage%"
+        binding.weeklyProgressBar.progress = weeklyProgressPercentage
+    }
 
 
 
