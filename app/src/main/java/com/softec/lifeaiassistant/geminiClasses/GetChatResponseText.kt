@@ -40,7 +40,6 @@ object GetChatResponseText {
                 result.text
             } catch (e: Exception) {
                 Log.e("TAG", "Error during chat: ${e.printStackTrace()}")
-                throw Exception("An error occurred. Please try again.")
             }.toString()
         }
     }

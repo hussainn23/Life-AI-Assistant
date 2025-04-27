@@ -257,12 +257,12 @@ class TaskFragment(private val context: AppCompatActivity) :
                 viewModel.saveTask(taskModel)
                 Toast.makeText(context, "Task Saved", Toast.LENGTH_SHORT).show()
 
-                viewModel.getTasksList(sharedPrefManager.getUserId()).observe(context) { task ->
-                    task?.let {
-                        tasksList = it
-                        sharedPrefManager.saveTasks(tasksList)
+                    viewModel.getTasksList(sharedPrefManager.getUserId()).observe(context) { task ->
+                        task?.let {
+                            tasksList = it
+                            sharedPrefManager.saveTasks(tasksList)
+                        }
                     }
-                }
                 binding.rcvProgress.adapter = TaskAdapter(
                     sharedPrefManager.getTasks()!!.sortedByDescending { it.createdAt },
                     (object : OnOptionClickListener {

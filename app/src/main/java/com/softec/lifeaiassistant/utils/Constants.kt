@@ -14,6 +14,7 @@ object Constants {
     ////////////////////////////COLLECTION NAMES//////////////////
 
     const val TASK = "Tasks"
+    const val MOOD = "Mood"
 
 
 

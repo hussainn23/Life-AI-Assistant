@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
+import com.softec.lifeaiassistant.models.MoodModel
 import com.softec.lifeaiassistant.models.TaskModel
 import com.softec.lifeaiassistant.utils.Constants
 
@@ -13,9 +14,6 @@ class TaskRepo {
 
 
 
-    fun saveTask() {
-
-    }
 
 
 
@@ -62,11 +60,51 @@ class TaskRepo {
             }
     }
 
+    fun saveMoodData(mood: MoodModel, saveResult_: MutableLiveData<Result<Unit>>) {
+        val newDocRef = db.collection(Constants.MOOD).document()
+        mood.moodId = newDocRef.id
+        newDocRef.set(mood)
+            .addOnSuccessListener {
+                saveResult_.postValue(Result.success(Unit))
+            }
+            .addOnFailureListener { exception ->
+                saveResult_.postValue(Result.failure(exception))
+            }
 
 
 
+    }
+
+    fun getMoodsList(id: String?): LiveData<List<MoodModel>> {
+
+        val moodLiveData = MutableLiveData<List<MoodModel>>()
+
+        // Ensure id is not null or empty before querying
+        if (id.isNullOrEmpty()) {
+            moodLiveData.value = emptyList()
+            return moodLiveData
+        }
+
+        // Add listener to Firestore collection
+        taskListener = db.collection(Constants.MOOD)
+            .whereEqualTo(Constants.USERID, id)
+            .addSnapshotListener { snapshots, e ->
+                if (e != null) {
+                    moodLiveData.value = emptyList()
+                    return@addSnapshotListener
+                }
 
 
+                val moods = snapshots?.documents?.mapNotNull { document ->
+                    val task = document.toObject(MoodModel::class.java)
+                    task?.copy(moodId = document.id)
+                }
+                moodLiveData.value = moods ?: emptyList()
+            }
+
+        return moodLiveData
+
+    }
 
 
 }

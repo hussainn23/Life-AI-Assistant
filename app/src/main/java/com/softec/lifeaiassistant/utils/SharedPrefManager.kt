@@ -8,6 +8,7 @@ import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
 import com.softec.lifeaiassistant.models.ChatDataClass
 import com.softec.lifeaiassistant.models.ModelUser
+import com.softec.lifeaiassistant.models.MoodModel
 import com.softec.lifeaiassistant.models.TaskModel
 
 class SharedPrefManager(context: Context) {
@@ -100,6 +101,28 @@ class SharedPrefManager(context: Context) {
             emptyList()
         }
     }
+
+
+
+    fun saveMoods(list: List<MoodModel>) {
+        val json = gson.toJson(list)
+        editor.putString("mood", json)
+        editor.apply()
+    }
+
+    fun getMoods(): List<MoodModel>? {
+        val json = sharedPref.getString("mood", null)
+        val type = object : TypeToken<List<MoodModel>>() {}.type
+        return if (json != null) {
+            gson.fromJson(json, type)
+        } else {
+            emptyList()
+        }
+    }
+
+
+
+
 
 
     fun saveChatList(list: List<ChatDataClass>) {

@@ -6,6 +6,8 @@ data class ModelUser(
     val userName: String = "",
     val userEmail: String = "",
     val passHash: String = "",
-    val imageUrl: String = ""
+    val imageUrl: String = "",
+    val update:Boolean=false
+
 
 )

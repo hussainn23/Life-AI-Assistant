@@ -17,9 +17,11 @@ import com.softec.lifeaiassistant.customClasses.SignupViewModelFactory
 import com.softec.lifeaiassistant.databinding.HomeFragmentBinding
 import com.softec.lifeaiassistant.databinding.LayoutFragmentHomeBinding
 import com.softec.lifeaiassistant.models.ModelUser
+import com.softec.lifeaiassistant.models.MoodModel
 import com.softec.lifeaiassistant.models.TaskModel
 import com.softec.lifeaiassistant.utils.SharedPrefManager
 import com.softec.lifeaiassistant.viewModel.LoginViewModel
+import com.softec.lifeaiassistant.viewModel.MoodViewModel
 import com.softec.lifeaiassistant.viewModel.SignupViewModel
 import com.softec.lifeaiassistant.viewModel.TaskViewModel
 
@@ -31,7 +33,9 @@ class HomeFragment(private val context: AppCompatActivity) :
     private lateinit var sharedPrefManager: SharedPrefManager
     private var userId:String?=null
     private lateinit var viewModel: TaskViewModel
+    private lateinit var moodViewModel: MoodViewModel
     private var tasksList = listOf<TaskModel>()
+    private var moodsList = listOf<MoodModel>()
 
 
 
@@ -44,6 +48,7 @@ class HomeFragment(private val context: AppCompatActivity) :
         userId=sharedPrefManager.getUserId()
 
         viewModel = ViewModelProvider(context)[TaskViewModel::class.java]
+        moodViewModel = ViewModelProvider(context)[MoodViewModel::class.java]
         fetchTasks()
         try {
             object : CountDownTimer(500, 500) {
@@ -74,6 +79,15 @@ class HomeFragment(private val context: AppCompatActivity) :
                 sharedPrefManager.saveTasks(tasksList)
             }
         }
+
+
+        moodViewModel.getMoodsList(sharedPrefManager.getUserId()).observe(context) { task ->
+            task?.let {
+                moodsList = it
+                sharedPrefManager.saveMoods(moodsList)
+            }
+        }
+
 
     }
 

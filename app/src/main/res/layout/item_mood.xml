@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/materialCard"
     android:layout_marginBottom="8dp"
@@ -31,10 +32,10 @@
             app:contentPadding="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full" />
--->
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full" />-->
+
         <TextView
-            android:id="@+id/serName"
+                android:id="@+id/serName"
             style="@style/textHeading.Small"
             android:layout_width="0dp"
             android:layout_marginStart="10dp"
@@ -51,23 +52,11 @@
             style="@style/textBody.VerySmall"
             android:layout_width="0dp"
             android:lines="1"
-            android:text="Suggestion Suggestion Suggestion Suggestion "
+            android:text="Suggestion Suggestion Suggestion Suggestion"
             app:layout_constraintBottom_toBottomOf="@id/img"
-            app:layout_constraintEnd_toStartOf="@id/adaptiveSuggestion"
+            app:layout_constraintEnd_toStartOf="@id/ivMore"
             app:layout_constraintStart_toStartOf="@id/serName"
             app:layout_constraintTop_toBottomOf="@id/serName"
-            app:layout_constraintWidth="1" />
-
-        <TextView
-            android:id="@+id/adaptiveSuggestion"
-            style="@style/textBody.VerySmall"
-            android:layout_width="0dp"
-            android:maxLines="1"
-            android:text="\u25cf Adaptive suggestion"
-            app:layout_constraintBottom_toBottomOf="@id/suggestion"
-            app:layout_constraintEnd_toStartOf="@id/ivMore"
-            app:layout_constraintStart_toEndOf="@id/suggestion"
-            app:layout_constraintTop_toTopOf="@id/suggestion"
             app:layout_constraintWidth="1" />
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -81,8 +70,5 @@
             app:layout_constraintStart_toEndOf="@id/serName"
             app:layout_constraintTop_toTopOf="@id/img" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </com.google.android.material.card.MaterialCardView>
