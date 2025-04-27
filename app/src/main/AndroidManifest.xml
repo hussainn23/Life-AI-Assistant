@@ -44,7 +44,7 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.LifeAIAssistant.Home"
-            android:windowSoftInputMode="adjustNothing"
+            android:windowSoftInputMode="adjustResize"
             tools:ignore="DiscouragedApi,LockedOrientationActivity" />
     </application>
 

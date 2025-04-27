@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
+import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,7 @@ import com.softec.lifeaiassistant.customClasses.BoldFormatter
 import com.softec.lifeaiassistant.databinding.FragmentSummarizerBinding
 import com.softec.lifeaiassistant.geminiClasses.GetChatResponseText
 import com.softec.lifeaiassistant.models.ChatDataClass
+import com.softec.lifeaiassistant.utils.SharedPrefManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,7 +33,7 @@ class SummarizerFragment(private val context: AppCompatActivity) :
 
     private lateinit var binding: FragmentSummarizerBinding
     private lateinit var adapter: ChatsAdapter
-    private val chatTextList = mutableListOf<ChatDataClass>()
+    private var chatTextList = mutableListOf<ChatDataClass>()
 
     companion object {
         private const val TAG = "GPTChat"
@@ -68,25 +70,20 @@ class SummarizerFragment(private val context: AppCompatActivity) :
                 .setInterpolator(OvershootInterpolator()).start()
         }
         doSomeWork()
-
+        binding.switchCheckList.setOnCheckedChangeListener({ _, isChecked ->
+            if (isChecked) binding.toolbar.title = "Checklist Generator" else binding.toolbar.title = "Summarizer"
+        })
     }
 
     private fun doSomeWork() {
         binding.editTextMessage.requestFocus()
 
-        binding.editTextMessage.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun afterTextChanged(s: Editable?) {}
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                binding.buttonSend.isEnabled = !TextUtils.isEmpty(s?.toString()?.trim())
-            }
-        })
-
-
-
+        chatTextList =
+            (SharedPrefManager(context).getChats()?.toList() ?: emptyList()).toMutableList()
         adapter = ChatsAdapter(context, chatTextList)
         binding.rcvProgress.adapter = adapter
+        binding.rcvProgress.smoothScrollToPosition(chatTextList.size-1)
         binding.buttonSend.setOnClickListener {
             Log.e(TAG, "onCreate: Send btn Clicked")
             buttonSendChat()
@@ -95,29 +92,56 @@ class SummarizerFragment(private val context: AppCompatActivity) :
 
     private fun buttonSendChat() {
         val promptText = binding.editTextMessage.text.toString().trim()
+        if (promptText.isEmpty()) {
+            return
+        }
+
+        hideKeyboard()
         binding.editTextMessage.text.clear()
 
         chatTextList.add(ChatDataClass(promptText, false))
         adapter.notifyItemInserted(chatTextList.size - 1)
         binding.rcvProgress.scrollToPosition(chatTextList.size - 1)
         //binding.progressIndicator.visibility = View.VISIBLE
-
+        val isGoalListing =  binding.switchCheckList.isChecked
         CoroutineScope(Dispatchers.Main).launch {
-            val query =
+
+            val query = if (!isGoalListing)
                 "You are a helpful assistant. Summarize the following text in the form of bullet points.\n" +
                         "\n" +
                         "Text: $promptText\n" +
                         "\n" +
                         "Summarize the key points and return them in a bullet point list.\n" +
                         "Respond only with the bullet points, no additional explanations."
+            else "You are a helpful assistant. Based on the goal provided below, generate a checklist of necessary steps to accomplish it.\n" +
+                    "\n" +
+                    "Goal: $promptText\n" +
+                    "\n" +
+                    "List the steps as clear and actionable bullet points.\n" +
+                    "Respond only with the bullet points, without any additional explanation."
+
             val chatResponseText = GetChatResponseText.getResponse(query)
             chatTextList.add(ChatDataClass(chatResponseText, true))
             adapter.notifyItemInserted(chatTextList.size - 1)
             binding.rcvProgress.scrollToPosition(chatTextList.size - 1)
+            SharedPrefManager(context).saveChatList(chatTextList)
         }
 
 
     }
+
+    fun hideKeyboard() {
+        // Get the current focus view
+        val view = context.currentFocus
+        // Get the InputMethodManager system service
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        // If a view is focused, hide the keyboard
+        if (view != null) {
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+    }
+
 
     class ChatsAdapter(
         private val context: Context,
