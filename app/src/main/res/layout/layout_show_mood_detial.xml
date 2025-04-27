@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    style="@style/materialCard"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/top_25dp_round"
+    android:backgroundTint="?colorTertiary"
+    app:cardCornerRadius="16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/img"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="8dp"
+            android:background="@drawable/grey_bg"
+            android:gravity="center"
+            android:text="😩"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/serName"
+            style="@style/textHeading"
+            android:layout_width="0dp"
+            android:layout_marginStart="10dp"
+            android:text="Sad"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/img"
+            app:layout_constraintTop_toTopOf="@id/img" />
+
+        <TextView
+            android:id="@+id/suggestion"
+            style="@style/textBody.Small"
+            android:layout_width="0dp"
+            android:layout_marginTop="8dp"
+            android:text="Suggestion Suggestion Suggestion Suggestion Suggestion Suggestion Suggestion Suggestion Suggestion Suggestion Suggestion Suggestion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/serName"
+            app:layout_constraintTop_toBottomOf="@id/tvsuggestion" />
+
+        <TextView
+            android:id="@+id/tvsuggestion"
+            style="@style/textHeading.Small"
+            android:layout_width="0dp"
+            android:layout_marginTop="8dp"
+            android:text="Suggestions:"
+            app:layout_constraintStart_toStartOf="@id/serName"
+            app:layout_constraintTop_toBottomOf="@id/serName" />
+
+        <TextView
+            android:id="@+id/tvadapsuggestion"
+            style="@style/textHeading.Small"
+            android:layout_width="0dp"
+            android:layout_marginTop="8dp"
+            android:text="Adaptive Suggestions:"
+            app:layout_constraintStart_toStartOf="@id/serName"
+            app:layout_constraintTop_toBottomOf="@id/suggestion" />
+
+        <TextView
+            android:id="@+id/adaptivesuggestion"
+            style="@style/textBody.Small"
+            android:layout_width="0dp"
+            android:layout_marginTop="8dp"
+            android:text="Suggestion Suggestion Suggestion Suggestion Suggestion Suggestion Suggestion Suggestion Suggestion Suggestion Suggestion Suggestion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/serName"
+            app:layout_constraintTop_toBottomOf="@id/tvadapsuggestion" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
